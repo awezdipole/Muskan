@@ -1,0 +1,263 @@
+﻿@model MuskanChildrenHospitalApp.Models.Bill
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<hr />
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h2 class=" text-center">Create New Bill </h2>
+            </div>
+            <form asp-action="Create">
+                <div class="card-body">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="BillNo" class="control-label"></label>
+                                <input asp-for="BillNo" class="form-control" />
+                                <span asp-validation-for="BillNo" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="DateOfDischarge" class="control-label"></label>
+                                <input asp-for="DateOfDischarge" class="form-control" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask id="datemask" />
+                                <span asp-validation-for="DateOfDischarge" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="Diagnosis" class="control-label"></label>
+                                <input asp-for="Diagnosis" class="form-control" />
+                                <span asp-validation-for="Diagnosis" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="AddmisionId" class="control-label"></label>
+                                <select asp-for="AddmisionId" class="form-control" asp-items="ViewBag.AddmisionId"></select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <table  class="table table-bordered table-striped"  >
+                                <thead>
+                                    <tr>
+                                        <th>Sr</th>
+                                        <th>Particulars</th>
+                                        <th>Days</th>
+                                        <th>Charges</th>
+                                        <th> Amount</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="submissionTable" class="abc">
+
+                                    <tr id="tablerow1">
+                                        <td>
+                                            <label id="srNo" name="sr[1]" >1</label>
+                                        </td>
+                                        <td>
+                                            <select id="Service" name="Service[0]" class="form-control select2bs4">
+                                                <option value="Registration"> Registration</option>
+                                                <option value="Phothotherapy Charges">Phothotherapy Charges</option>
+                                                <option value=" Monitor Charges"> Monitor Charges</option>
+                                                <option value=" Oxygen Charges"> Oxygen Charges</option>
+                                                <option>CPAP Charges </option>
+                                                <option value="Blood Transfusion, FFP, PCV">Blood Transfusion, FFP, PCV</option>
+                                                <option value="LP Charges">LP Charges</option>
+                                                <option value=" Oprrate Charges">Oprrate Charges</option>
+                                                <option value="OT Charges">OT Charges</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control one" name="Day[1]" required="required"  />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control two" name="charge[1]" required="required" />
+                                        </td>
+                                        <td><input type="text" class="form-control three" name="Amount[1]" required="required" /></td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" onclick="removeTr(1);">Delete</button>
+                                        </td>
+                                    </tr>
+
+
+
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5"><button id="add" class="btn btn-primary" onclick=" addrow();">Add</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="2">
+                                            <div class="form-group">
+                                                <label asp-for="AmountInWords" class="control-label"></label>
+                                                <input asp-for="AmountInWords" class="form-control" />
+                                                <span asp-validation-for="AmountInWords" class="text-danger"></span>
+                                            </div>
+                                        </td>
+                                        <td colspan="2">
+                                            <div class="form-group">
+                                                <label asp-for="TotalAmount" class="control-label"></label>
+                                                <input asp-for="TotalAmount" class="form-control result" />
+                                                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label asp-for="Advance" class="control-label"></label>
+                                <input asp-for="Advance" class="form-control" />
+                                <span asp-validation-for="Advance" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Discount" class="control-label"></label>
+                                <input asp-for="Discount" class="form-control" />
+                                <span asp-validation-for="Discount" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Balance" class="control-label"></label>
+                                <input asp-for="Balance" class="form-control" />
+                                <span asp-validation-for="Balance" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label asp-for="Refund" class="control-label"></label>
+                                <input asp-for="Refund" class="form-control" />
+                                <span asp-validation-for="Refund" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+<script>
+
+    var counter = 2;
+    $(function () {
+        $("table").on("change", "input", function () {  //use event delegation
+            var tableRow = $(this).closest("tr");  //from input find row
+            var one = Number(tableRow.find(".one").val());  //get first textbox
+            var two = Number(tableRow.find(".two").val());  //get second textbox
+            var total = one * two;  //calculate total
+            tableRow.find(".three").val(total);  //set value
+
+            var theTotal = 0;
+            $(".three").each(function () {
+                var val = Number($(this).val());
+                theTotal += parseInt(val);
+            });
+            $(".result").val(""+theTotal);
+        });
+
+        //Datemask dd/mm/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        //Datemask2 mm/dd/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        //Money Euro
+        $('[data-mask]').inputmask()
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+
+    });
+
+    function addrow() {
+        $('<tr id="tablerow' + counter + '"><td>' +
+            '<label id="srNo" name="sr[' + counter + ']" >' + counter + '</label>' +
+            '</td>' +
+            '<td>' +
+            '    <select id="Service" name="Service[' + counter + ']"  class="form-control select2bs4"><option value = "Registration" class="form-control"> Registration</option> <option value="Phothotherapy Charges">Phothotherapy Charges</option><option value=" Monitor Charges"> Monitor Charges</option><option value=" Oxygen Charges"> Oxygen Charges</option><option>CPAP Charges </option><option value="Blood Transfusion, FFP, PCV">Blood Transfusion, FFP, PCV</option><option value="LP Charges">LP Charges</option><option value=" Oprrate Charges">Oprrate Charges</option><option value="OT Charges">OT Charges</option></select >' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" class="form-control one" name="Day[' + counter + ']" required="required" />' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" class="form-control two" name="charge[' + counter + ']" required="required" />' +
+            '</td>' +
+            '<td>' +
+            '<input type="text" class="form-control three" name="Amount[' + counter + ']" required="required" />' +
+            '</td>' +
+            '<td>' +
+            '<button type="button" class="btn btn-default" onclick="removeTr(' + counter + ');">Delete</button>' +
+            '</td>' +
+            '</tr>').appendTo('#submissionTable');
+        counter++;
+        return false;
+    }
+    function removeTr(index) {
+        if (counter > 2) {
+            var tableRow = $('#tablerow' + index);  //from input find row
+            var one = Number(tableRow.find(".three").val());  //get first textbox
+            var two = Number($(".result").val());
+            var result = two - one;
+            //get second textbox
+            $(".result").val("" + result);
+            $('#tablerow' + index).remove();
+            counter--;
+        }
+        return false;
+    }
+</script>
