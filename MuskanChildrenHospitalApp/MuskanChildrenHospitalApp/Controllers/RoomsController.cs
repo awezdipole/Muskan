@@ -50,13 +50,14 @@ namespace MuskanChildrenHospitalApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,RoomName,RoomType")] Room room)
+        public IActionResult Create([Bind("Id,RoomName,RoomType,BedCharge,DoctorCharge,NursingCharges,TotalCharges")] Room room)
         {
             
             if (ModelState.IsValid)
             {
 
                 room.Status = true;
+                room.IsAssign = false;
                 room.ModifiedDate = DateTime.Now;
                 room.ModifiedBy = "Admin"; 
                 room.createdDate = DateTime.Now;

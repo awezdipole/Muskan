@@ -62,6 +62,7 @@ namespace MuskanChildrenHospitalApp.Controllers
             if (ModelState.IsValid)
             {
                 bed.Status = true;
+                bed.IsAssign = false;
                 bed.createdDate = DateTime.Now;
                 bed.CreatedBy = "Admin";
                 _context.Add(bed);

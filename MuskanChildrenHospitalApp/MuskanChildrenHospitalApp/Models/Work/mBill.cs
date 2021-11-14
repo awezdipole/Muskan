@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,14 +14,28 @@ namespace MuskanChildrenHospitalApp.Models.Work
         [ForeignKey("mkAddmision")]
         public int addmisionId { get; set; }
         public mkAddmision mAddmisions { get; set; }
+        [DisplayName("Reg No")]
         public string RegNo { get; set; }
         public string Date { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        [DisplayName("Total Amount")]
         public decimal TotalAmt { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        [DisplayName("Advance Amount")]
         public decimal AdvanceAmt { get; set; }
-        public decimal BalanceAmt { get; set; }
-        public decimal RefundAmt { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
+        [DisplayName("Balance Amount")]
+        public decimal BalanceAmt { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        [DisplayName("Refund Amount")]
+        public decimal RefundAmt { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        [DisplayName("Discount Amount")]
         public decimal DiscountAmt { get; set; }
         public string BillNo { get; set; }
+
+        public ICollection<mBillDetailsService> mServices { get; set; }
+        public ICollection<mBillRommDetailsCharges> mRooms { get; set; }
     }
 }

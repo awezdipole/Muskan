@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MuskanChildrenHospitalApp.Models.Work;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace MuskanChildrenHospitalApp.Models
         public string RegistrationNumber { get; set; }
 
         //Foreign key Injected
-        [ForeignKey("Addmision")]
+        [ForeignKey("mkAddmision")]
         public int AddmisionId { get; set; }
-        public Addmision Addmision { get; set; }
+        public mkAddmision Addmision { get; set; }
 
        
 

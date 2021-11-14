@@ -8,18 +8,32 @@ using Microsoft.EntityFrameworkCore;
 using MuskanChildrenHospitalApp.Data;
 using MuskanChildrenHospitalApp.Models;
 using MuskanChildrenHospitalApp.Models.Interface;
+using MuskanChildrenHospitalApp.Models.Work;
 
 namespace MuskanChildrenHospitalApp.Controllers
 {
     public class AddmisionsController : Controller
     {
+        private readonly ApplicationDbContext db;
         private readonly IAdmissionRepositoy _context;
+        private readonly IPatientRepository patientRepository;
+        private readonly IAssignRoomRepository assignRoomRepository;
         private readonly IbedRepository Bedcontext;
         private readonly IRoomRepository RoomCotext;
 
-        public AddmisionsController(IAdmissionRepositoy context, IbedRepository ibedContext, IRoomRepository room)
+        mkAddmision Mkadd = new mkAddmision();
+        Patient Patient = new Patient();
+        AssignRoom aroom = new AssignRoom();
+
+
+       
+
+        public AddmisionsController(ApplicationDbContext db,IAdmissionRepositoy context,IPatientRepository patientRepository,IAssignRoomRepository assignRoomRepository, IbedRepository ibedContext, IRoomRepository room)
         {
+            this.db = db;
             _context = context;
+            this.patientRepository = patientRepository;
+            this.assignRoomRepository = assignRoomRepository;
             Bedcontext = ibedContext;
             RoomCotext = room;
         }
@@ -58,11 +72,51 @@ namespace MuskanChildrenHospitalApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,PatientName,Age,Sex,RegistrationNumber,Address,RoomId,BedId,ContactNo,DateOfAdmission,Weight,Refrence,TimeOfAddmision")] Addmision addmision)
+        public IActionResult Create([Bind("id,PatientName,Age,Sex,RegistrationNumber,Address,RoomId,BedId,ContactNo,DateOfAdmission,Weight,Refrence,TimeOfAddmision")] Addmision addmision)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(addmision);
+                Patient.Name = addmision.PatientName;
+                Patient.Age = addmision.Age;
+                Patient.ContactNo = addmision.ContactNo;
+                Patient.Address = addmision.Address;
+                Patient.Gender = addmision.Sex;
+                
+                db.Patients.Add(Patient);
+                db.SaveChanges();
+
+              
+
+                Mkadd.RoomId = addmision.RoomId;
+                Mkadd.BedId = addmision.BedId;
+                Mkadd.RegNo = addmision.RegistrationNumber;
+                Mkadd.DateOfAddmission = addmision.DateOfAdmission;
+                Mkadd.PatientId = Patient.id;
+                Mkadd.DateOfDischarge = "";
+
+                db.Addmisions.Add(Mkadd);
+                db.SaveChanges();
+
+                aroom.AddmissionId = Mkadd.id;
+                aroom.RoomId = Mkadd.RoomId;
+                aroom.BedId = Mkadd.BedId;
+                aroom.RegNo = Mkadd.RegNo;
+                aroom.DateAdded = DateTime.Now.ToString();
+
+                db.AssignRooms.Add(aroom);
+                db.SaveChanges();
+                //adding data into database
+                //if(Mkadd !=null && aroom !=null && Patient != null)
+                // {
+                //patientRepository.Add(Patient);
+                //_context.Add(Mkadd);
+                //assignRoomRepository.Add(aroom);
+                //}
+               
+
+
+               // Mkadd.
+               //_context.Add(Mkadd);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BedId"] = new SelectList(Bedcontext.GetBeds(), "id", "id", addmision.BedId);
@@ -86,36 +140,36 @@ namespace MuskanChildrenHospitalApp.Controllers
         // POST: Addmisions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,PatientName,Age,Sex,RegistrationNumber,Address,RoomId,BedId,ContactNo,DateOfAdmission,Weight,Refrence,TimeOfAddmision")] Addmision addmision)
-        {
-            if (id != addmision.id)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("id,PatientName,Age,Sex,RegistrationNumber,Address,RoomId,BedId,ContactNo,DateOfAdmission,Weight,Refrence,TimeOfAddmision")] Addmision addmision)
+        //{
+        //    if (id != addmision.id)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(addmision);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            //_context.Update(addmision);
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
                     
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["BedId"] = new SelectList(Bedcontext.GetBeds(), "id", "id", addmision.BedId);
-            ViewData["RoomId"] = new SelectList(RoomCotext.GetRooms(), "Id", "Id", addmision.RoomId);
-            return View(addmision);
-        }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["BedId"] = new SelectList(Bedcontext.GetBeds(), "id", "id", addmision.BedId);
+        //    ViewData["RoomId"] = new SelectList(RoomCotext.GetRooms(), "Id", "Id", addmision.RoomId);
+        //    return View(addmision);
+        //}
 
         // GET: Addmisions/Delete/5
         public IActionResult Delete(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }

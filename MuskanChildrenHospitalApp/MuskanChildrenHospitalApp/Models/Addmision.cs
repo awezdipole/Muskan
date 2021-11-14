@@ -17,15 +17,12 @@ namespace MuskanChildrenHospitalApp.Models
 
         public String Address { get; set; }
 
-        //Foreign key Injected
-        [ForeignKey("Room")]
-        public int? RoomId { get; set; }
-        public Room Room { get; set; }
+     
+        public int RoomId { get; set; }
+      
 
-        //Foreign key Injected
-        [ForeignKey("Bed")]
-        public int? BedId { get; set; }
-        public Bed Bed { get; set; }
+        public int BedId { get; set; }
+       
 
         public string ContactNo { get; set; }
 
@@ -34,9 +31,7 @@ namespace MuskanChildrenHospitalApp.Models
         public int Weight { get; set; }
         public string Refrence { get; set; }
         public string TimeOfAddmision { get; set; }
-
-        public ICollection<Bill> Bill { get; set; }
-        public ICollection<Receipt> Receipt { get; set; }
+        public string DateOfDischarge { get; set; }
 
 
     }

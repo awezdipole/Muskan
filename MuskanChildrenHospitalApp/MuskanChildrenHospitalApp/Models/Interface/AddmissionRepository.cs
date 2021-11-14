@@ -1,4 +1,5 @@
 ﻿using MuskanChildrenHospitalApp.Data;
+using MuskanChildrenHospitalApp.Models.Work;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace MuskanChildrenHospitalApp.Models.Interface
         }
 
 
-        public Addmision Add(Addmision addmision)
+        public mkAddmision Add(mkAddmision addmision)
         {
             _context.Addmisions.Add(addmision);
             _context.SaveChanges();
@@ -28,9 +29,9 @@ namespace MuskanChildrenHospitalApp.Models.Interface
             
         }
 
-        public Addmision Delete(int id)
+        public mkAddmision Delete(int id)
         {
-          Addmision addmision=  _context.Addmisions.Find(id);
+            mkAddmision addmision =  _context.Addmisions.Find(id);
 
             if(addmision != null)
             {
@@ -40,18 +41,22 @@ namespace MuskanChildrenHospitalApp.Models.Interface
             return addmision;
         }
 
-        public Addmision GetAddmision(int id)
+        public mkAddmision GetAddmision(int id)
         {
-            Addmision addmision = _context.Addmisions.Find(id);
+            mkAddmision addmision = _context.Addmisions.Find(id);
             return addmision;
         }
 
-        public IEnumerable<Addmision> GetAddmisions()
+        public IEnumerable<mkAddmision> GetAddmisions()
         {
+            //return _context.Addmisions.Join(_context.Patients, p=>p.PatientId, a=> a.id, (p,a)=> new {
+            //    a.Name,p.DateOfDischarge,p.DateOfAddmission,p.RegNo,p.IsDischarge
+            //}).ToList();
+
             return _context.Addmisions;
         }
 
-        public Addmision Update(Addmision addmisionChanges)
+        public mkAddmision Update(mkAddmision addmisionChanges)
         {
             var addmision = _context.Addmisions.Attach(addmisionChanges);
             addmision.State = Microsoft.EntityFrameworkCore.EntityState.Modified;

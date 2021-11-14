@@ -47,7 +47,8 @@ namespace MuskanChildrenHospitalApp
             services.AddScoped<IReceiptRepository, ReceiptRepository>();
             services.AddScoped<IBillRepository, BillRepositor>();
             services.AddScoped<IBillDetailsRepositoy, BillDetailsRepositoy>();
-            services.AddScoped<IserviceRepository, ServiceRepository>();
+            services.AddScoped<IAssignRoomRepository, AssignRoomRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,15 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+
 
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">DataTable with default features</h3>
+        <div class="row">
+            <div class="col-md-6"><h2>Beds List</h2></div>
+            <div class="col-md-6">
+                <button class="float-right btn btn-primary" >
+                    <a asp-action="Create" style="color:white"> Add New</a> 
+                </button>
+            </div>
+        </div>
+        
+       
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -24,22 +31,13 @@
                         @Html.DisplayNameFor(model => model.BedName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Status)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreatedBy)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.createdDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ModifiedBy)
+                        @Html.DisplayNameFor(model => model.IsAssign)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ModifiedDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Room)
+                        @Html.DisplayNameFor(model => model.Room.RoomName)
                     </th>
                     <th></th>
                 </tr>
@@ -52,22 +50,13 @@
                             @Html.DisplayFor(modelItem => item.BedName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedBy)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.createdDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ModifiedBy)
+                            @Html.DisplayFor(modelItem => item.IsAssign)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.ModifiedDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Room.Id)
+                            @Html.DisplayFor(modelItem => item.Room.RoomName)
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |

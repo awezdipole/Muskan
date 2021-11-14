@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MuskanChildrenHospitalApp.Data;
 using MuskanChildrenHospitalApp.Models;
 using MuskanChildrenHospitalApp.Models.Interface;
+using MuskanChildrenHospitalApp.Models.Work;
 
 namespace MuskanChildrenHospitalApp.Controllers
 {
@@ -55,7 +56,7 @@ namespace MuskanChildrenHospitalApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("BillNo,DateOfDischarge,Diagnosis,TotalAmount,Advance,Discount,Balance,AmountInWords,AddmisionId,Refund")] Bill bill)
+        public IActionResult Create([Bind("BillNo,DateOfDischarge,Diagnosis,TotalAmount,Advance,Discount,Balance,AmountInWords,AddmisionId,Refund")] mBill bill)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +64,7 @@ namespace MuskanChildrenHospitalApp.Controllers
                 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AddmisionId"] = new SelectList(_admission.GetAddmisions(), "id", "id" ,bill.AddmisionId);
+            ViewData["AddmisionId"] = new SelectList(_admission.GetAddmisions(), "id", "id" ,bill.addmisionId);
             return View(bill);
         }
 

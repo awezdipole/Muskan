@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MuskanChildrenHospitalApp.Models.Work;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,12 +8,12 @@ namespace MuskanChildrenHospitalApp.Models.Interface
 {
     public interface IAdmissionRepositoy
     {
-        Addmision GetAddmision(int id);
+        mkAddmision GetAddmision(int id);
 
-        IEnumerable<Addmision> GetAddmisions();
+        IEnumerable<mkAddmision> GetAddmisions();
 
-        Addmision Add(Addmision addmision);
-        Addmision Update(Addmision addmisionChanges);
-        Addmision Delete(int id);
+        mkAddmision Add(mkAddmision addmision);
+        mkAddmision Update(mkAddmision addmisionChanges);
+        mkAddmision Delete(int id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MuskanChildrenHospitalApp.Data;
+using MuskanChildrenHospitalApp.Models.Work;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +15,21 @@ namespace MuskanChildrenHospitalApp.Models.Interface
         {
             this._context = Context;
         }
-        public Bill Add(Bill bill)
+        public mBill Add(mBill bill)
         {
             _context.Bills.Add(bill);
             _context.SaveChanges();
             return bill;
         }
 
-        public IEnumerable<Bill> bills()
+        public IEnumerable<mBill> bills()
         {
             return _context.Bills;
         }
 
-        public Bill GetBill(int id)
+        public mBill GetBill(int id)
         {
-            Bill bill = _context.Bills.Find(id);
+            mBill bill = _context.Bills.Find(id);
 
             return bill;
         }
