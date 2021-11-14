@@ -5,68 +5,103 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoomType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.createdDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.createdDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            <div class="row">
+                <div class="col-md-6"><h2>Rooms List</h2></div>
+                <div class="col-md-6">
+                    <button class="float-right btn btn-primary">
+                        <a asp-action="Create" style="color:white"> Add New</a>
+                    </button>
+                </div>
+            </div>
+
+
+        </h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoomName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoomType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BedCharge)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DoctorCharge)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NursingCharges)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TotalCharges)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsAssign)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoomName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoomType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BedCharge)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DoctorCharge)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NursingCharges)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalCharges)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsAssign)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+
+
+
+<!-- page script -->
+<script>
+    $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+        });
+    });</script>

@@ -19,21 +19,48 @@
             <form asp-action="Create">
                 <div class="card-body">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="RoomName" class="control-label"></label>
-                        <input asp-for="RoomName" class="form-control" />
-                        <span asp-validation-for="RoomName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="RoomType" class="control-label"></label>
-                        <input asp-for="RoomType" class="form-control" />
-                        <span asp-validation-for="RoomType" class="text-danger"></span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="RoomName" class="control-label"></label>
+                                <input asp-for="RoomName" class="form-control" />
+                                <span asp-validation-for="RoomName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="RoomType" class="control-label"></label>
+                                <input asp-for="RoomType" class="form-control" />
+                                <span asp-validation-for="RoomType" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="BedCharge" class="control-label"></label>
+                                <input asp-for="BedCharge" class="form-control charge" />
+                                <span asp-validation-for="BedCharge" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="NursingCharges" class="control-label"></label>
+                                <input asp-for="NursingCharges" class="form-control charge" />
+                                <span asp-validation-for="NursingCharges" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="DoctorCharge" class="control-label"></label>
+                                <input asp-for="DoctorCharge" class="form-control charge" />
+                                <span asp-validation-for="DoctorCharge" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TotalCharges" class="control-label"></label>
+                                <input asp-for="TotalCharges" class="form-control totalcharge" readonly />
+                                <span asp-validation-for="TotalCharges" class="text-danger"></span>
+                            </div>
+                        </div>
                     </div>
                     
+                   
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
-                    </div>
+                </div>
             </form>
         </div>
 
@@ -43,4 +70,20 @@
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
+<script>
 
+    $(document).ready(function () {
+        $(".charge").on("input", function () {
+            var total = 0;
+            debugger;
+            $(".charge").each(function (i, n) {
+                if (!isNaN(parseInt($(this).val()))) {
+                    total += parseInt($(n).val(), 10);
+                }
+            });
+            $(".totalcharge").val(total);
+        });
+    })
+
+    
+</script>

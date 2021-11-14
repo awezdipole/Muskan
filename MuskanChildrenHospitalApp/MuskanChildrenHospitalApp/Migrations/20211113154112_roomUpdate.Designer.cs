@@ -10,8 +10,8 @@ using MuskanChildrenHospitalApp.Data;
 namespace MuskanChildrenHospitalApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210923092746_apCreate")]
-    partial class apCreate
+    [Migration("20211113154112_roomUpdate")]
+    partial class roomUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,58 +221,6 @@ namespace MuskanChildrenHospitalApp.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Addmision", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Age")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("BedId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ContactNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DateOfAdmission")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PatientName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Refrence")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RegistrationNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RoomId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Sex")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TimeOfAddmision")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("BedId");
-
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("Addmisions");
-                });
-
             modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Bed", b =>
                 {
                     b.Property<int>("id")
@@ -306,50 +254,6 @@ namespace MuskanChildrenHospitalApp.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("Beds");
-                });
-
-            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Bill", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AddmisionId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Advance")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("AmountInWords")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("BillNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DateOfDischarge")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Diagnosis")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Refund")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddmisionId");
-
-                    b.ToTable("Bills");
                 });
 
             modelBuilder.Entity("MuskanChildrenHospitalApp.Models.ExpenseHeads", b =>
@@ -460,7 +364,7 @@ namespace MuskanChildrenHospitalApp.Migrations
                     b.Property<string>("Date")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HeadsId")
+                    b.Property<int?>("IncomeHeadsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -482,7 +386,7 @@ namespace MuskanChildrenHospitalApp.Migrations
 
                     b.HasIndex("AddmisionId");
 
-                    b.HasIndex("HeadsId");
+                    b.HasIndex("IncomeHeadsId");
 
                     b.ToTable("Receipts");
                 });
@@ -494,14 +398,26 @@ namespace MuskanChildrenHospitalApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("BedCharge")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("DoctorCharge")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("IsAssign")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("NursingCharges")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("RoomName")
                         .HasColumnType("nvarchar(max)");
@@ -512,12 +428,280 @@ namespace MuskanChildrenHospitalApp.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
+                    b.Property<decimal>("TotalCharges")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("createdDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.AssignRoom", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AddmissionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BedId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DateAdded")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateUpdate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("mkAddmisionsid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("mkAddmisionsid");
+
+                    b.ToTable("AssignRooms");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.Patient", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Age")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.mBill", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("AdvanceAmt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("BalanceAmt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("BillNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Date")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("DiscountAmt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("RefundAmt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("RegNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalAmt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("addmisionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("mAddmisionsid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("mAddmisionsid");
+
+                    b.ToTable("Bills");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.mBillDetailsService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ServiceName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("mBillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("mBillId");
+
+                    b.ToTable("BillDetails");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.mBillRommDetailsCharges", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("AssignRoomId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BillId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Charge")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Days")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Mbillsid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("roomId")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("AssignRoomId");
+
+                    b.HasIndex("Mbillsid");
+
+                    b.HasIndex("roomId");
+
+                    b.ToTable("mBillRoom");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.mkAddmision", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BedId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DateOfAddmission")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateOfDischarge")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDischarge")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RegNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("serviceid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("BedId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("RoomId");
+
+                    b.HasIndex("serviceid");
+
+                    b.ToTable("Addmision");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.service", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AddDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Charges")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ServiceName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("addedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -571,21 +755,6 @@ namespace MuskanChildrenHospitalApp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Addmision", b =>
-                {
-                    b.HasOne("MuskanChildrenHospitalApp.Models.Bed", "Bed")
-                        .WithMany("Addmisions")
-                        .HasForeignKey("BedId");
-
-                    b.HasOne("MuskanChildrenHospitalApp.Models.Room", "Room")
-                        .WithMany("Addmisions")
-                        .HasForeignKey("RoomId");
-
-                    b.Navigation("Bed");
-
-                    b.Navigation("Room");
-                });
-
             modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Bed", b =>
                 {
                     b.HasOne("MuskanChildrenHospitalApp.Models.Room", "Room")
@@ -595,17 +764,6 @@ namespace MuskanChildrenHospitalApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Bill", b =>
-                {
-                    b.HasOne("MuskanChildrenHospitalApp.Models.Addmision", "Addmision")
-                        .WithMany("Bill")
-                        .HasForeignKey("AddmisionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Addmision");
                 });
 
             modelBuilder.Entity("MuskanChildrenHospitalApp.Models.ExpenseReceipt", b =>
@@ -619,28 +777,108 @@ namespace MuskanChildrenHospitalApp.Migrations
 
             modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Receipt", b =>
                 {
-                    b.HasOne("MuskanChildrenHospitalApp.Models.Addmision", "Addmision")
-                        .WithMany("Receipt")
+                    b.HasOne("MuskanChildrenHospitalApp.Models.Work.mkAddmision", "Addmision")
+                        .WithMany("receipts")
                         .HasForeignKey("AddmisionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MuskanChildrenHospitalApp.Models.IncomeHeads", "IncomeHeads")
+                    b.HasOne("MuskanChildrenHospitalApp.Models.IncomeHeads", null)
                         .WithMany("Receipts")
-                        .HasForeignKey("HeadsId")
+                        .HasForeignKey("IncomeHeadsId");
+
+                    b.Navigation("Addmision");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.AssignRoom", b =>
+                {
+                    b.HasOne("MuskanChildrenHospitalApp.Models.Work.mkAddmision", "mkAddmisions")
+                        .WithMany("assignRooms")
+                        .HasForeignKey("mkAddmisionsid");
+
+                    b.Navigation("mkAddmisions");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.mBill", b =>
+                {
+                    b.HasOne("MuskanChildrenHospitalApp.Models.Work.mkAddmision", "mAddmisions")
+                        .WithMany("mBills")
+                        .HasForeignKey("mAddmisionsid");
+
+                    b.Navigation("mAddmisions");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.mBillDetailsService", b =>
+                {
+                    b.HasOne("MuskanChildrenHospitalApp.Models.service", "Services")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Addmision");
+                    b.HasOne("MuskanChildrenHospitalApp.Models.Work.mBill", "Mbills")
+                        .WithMany("mServices")
+                        .HasForeignKey("mBillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("IncomeHeads");
+                    b.Navigation("Mbills");
+
+                    b.Navigation("Services");
                 });
 
-            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Addmision", b =>
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.mBillRommDetailsCharges", b =>
                 {
-                    b.Navigation("Bill");
+                    b.HasOne("MuskanChildrenHospitalApp.Models.Work.AssignRoom", "assign")
+                        .WithMany()
+                        .HasForeignKey("AssignRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Receipt");
+                    b.HasOne("MuskanChildrenHospitalApp.Models.Work.mBill", "Mbills")
+                        .WithMany("mRooms")
+                        .HasForeignKey("Mbillsid");
+
+                    b.HasOne("MuskanChildrenHospitalApp.Models.Room", "rooms")
+                        .WithMany()
+                        .HasForeignKey("roomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("assign");
+
+                    b.Navigation("Mbills");
+
+                    b.Navigation("rooms");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.mkAddmision", b =>
+                {
+                    b.HasOne("MuskanChildrenHospitalApp.Models.Bed", "beds")
+                        .WithMany("Addmisions")
+                        .HasForeignKey("BedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MuskanChildrenHospitalApp.Models.Work.Patient", "Patients")
+                        .WithMany("Addmisions")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MuskanChildrenHospitalApp.Models.Room", "Rooms")
+                        .WithMany("Addmisions")
+                        .HasForeignKey("RoomId");
+
+                    b.HasOne("MuskanChildrenHospitalApp.Models.service", null)
+                        .WithMany("addmisions")
+                        .HasForeignKey("serviceid");
+
+                    b.Navigation("beds");
+
+                    b.Navigation("Patients");
+
+                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Bed", b =>
@@ -663,6 +901,32 @@ namespace MuskanChildrenHospitalApp.Migrations
                     b.Navigation("Addmisions");
 
                     b.Navigation("Beds");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.Patient", b =>
+                {
+                    b.Navigation("Addmisions");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.mBill", b =>
+                {
+                    b.Navigation("mRooms");
+
+                    b.Navigation("mServices");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.Work.mkAddmision", b =>
+                {
+                    b.Navigation("assignRooms");
+
+                    b.Navigation("mBills");
+
+                    b.Navigation("receipts");
+                });
+
+            modelBuilder.Entity("MuskanChildrenHospitalApp.Models.service", b =>
+                {
+                    b.Navigation("addmisions");
                 });
 #pragma warning restore 612, 618
         }

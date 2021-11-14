@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MuskanChildrenHospitalApp.Models.Work;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,10 +8,10 @@ namespace MuskanChildrenHospitalApp.Models.Interface
 {
     public interface IBillRepository
     {
-        Bill GetBill(int id);
-        IEnumerable<Bill> bills();
+        mBill GetBill(int id);
+        IEnumerable<mBill> bills();
 
-        Bill Add(Bill bill);
+        mBill Add(mBill bill);
 
     }
 }

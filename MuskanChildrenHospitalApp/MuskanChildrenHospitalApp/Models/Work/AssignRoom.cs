@@ -9,14 +9,9 @@ namespace MuskanChildrenHospitalApp.Models.Work
     public class AssignRoom
     {
         public int id { get; set; }
-        //Foreign key Injected
-        [ForeignKey("Room")]
-        public int RoomId { get; set; }
-        public Room Rooms { get; set; }
-        //Foreign key Injected
-        [ForeignKey("Bed")]
+        public int? RoomId { get; set; }
+        
         public int BedId { get; set; }
-        public Bed beds { get; set; }
         //Foreign key Injected
         [ForeignKey("mkAddmision")]
         public int AddmissionId { get; set; }
@@ -25,7 +20,7 @@ namespace MuskanChildrenHospitalApp.Models.Work
         public string DateAdded { get; set; }
         public string DateUpdate { get; set; }
         public bool Status { get; set; }
-        public bool IsDischarge { get; set; }
+       
 
     }
 }
