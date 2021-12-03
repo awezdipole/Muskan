@@ -16,6 +16,10 @@ namespace MuskanChildrenHospitalApp.Models.Work
         public mkAddmision mAddmisions { get; set; }
         [DisplayName("Reg No")]
         public string RegNo { get; set; }
+        [DisplayName("Diagnosis")]
+        public string Diagnosis { get; set; }
+        [DisplayName("Amount In Words")]
+        public string AmtInWords { get; set; }
         public string Date { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         [DisplayName("Total Amount")]

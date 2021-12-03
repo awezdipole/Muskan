@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MuskanChildrenHospitalApp.Models.Work.mkAddmision>
+﻿@model IEnumerable<MuskanChildrenHospitalApp.Models.Addmision>
 
 @{
     ViewData["Title"] = "Index";
@@ -24,49 +24,61 @@
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    
                     <th>
-                        @Html.DisplayNameFor(model => model.DateOfAddmission)
+                        @Html.DisplayNameFor(model => model.PatientName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegistrationNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoomName)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateOfAdmission)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.DateOfDischarge)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RegNo)
-                    </th>
-                    
+
+
                     <th>
                         @Html.DisplayNameFor(model => model.IsDischarge)
                     </th>
-                   
+
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                       
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateOfAddmission)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateOfDischarge)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RegNo)
-                        </td>
-                       
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IsDischarge)
-                        </td>
-                        
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PatientName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoomName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfAdmission)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfDischarge)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDischarge)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

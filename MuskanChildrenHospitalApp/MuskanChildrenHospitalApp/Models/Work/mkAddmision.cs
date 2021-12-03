@@ -24,10 +24,12 @@ namespace MuskanChildrenHospitalApp.Models.Work
         public int UserId { get; set; }
         public bool IsDischarge { get; set; }
         [ForeignKey("Room")]
+        [DisplayName("Room")]
         public int? RoomId { get; set; }
         public Room Rooms { get; set; }
         //Foreign key Injected
         [ForeignKey("Bed")]
+        [DisplayName("Bed ")]
         public int BedId { get; set; }
         public Bed beds { get; set; }
 

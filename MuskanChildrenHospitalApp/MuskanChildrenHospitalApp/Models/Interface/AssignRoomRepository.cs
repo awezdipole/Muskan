@@ -44,6 +44,10 @@ namespace MuskanChildrenHospitalApp.Models.Interface
             return _context.AssignRooms;
         }
 
+        public IEnumerable<AssignRoom> GetAssignRoomsByAddId(int addmissionId)
+        {
+            return _context.AssignRooms.Where(P => P.AddmissionId == addmissionId).ToList();
+        }
         public AssignRoom Update(AssignRoom roomChanges)
         {
             var room = _context.AssignRooms.Attach(roomChanges);

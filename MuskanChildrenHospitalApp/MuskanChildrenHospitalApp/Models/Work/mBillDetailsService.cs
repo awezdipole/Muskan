@@ -15,6 +15,7 @@ namespace MuskanChildrenHospitalApp.Models.Work
         public int mBillId { get; set; }
         public mBill Mbills { get; set; }
         [ForeignKey("service")]
+        [DisplayName("Service")]
         public int ServiceId { get; set; }
         public service Services { get; set; }
         public string ServiceName { get; set; }

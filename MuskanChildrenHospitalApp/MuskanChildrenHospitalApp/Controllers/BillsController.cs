@@ -14,13 +14,19 @@ namespace MuskanChildrenHospitalApp.Controllers
 {
     public class BillsController : Controller
     {
+        private readonly ApplicationDbContext db;
         private readonly IBillRepository _context;
+        private readonly IAssignRoomRepository assign;
         private readonly IAdmissionRepositoy _admission;
+        private readonly IserviceRepository iservice;
 
-        public BillsController(IBillRepository context, IAdmissionRepositoy admission)
+        public BillsController(ApplicationDbContext db,IBillRepository context,IAssignRoomRepository assign ,IAdmissionRepositoy admission,IserviceRepository iservice)
         {
+            this.db = db;
             _context = context;
+            this.assign = assign;
             this._admission = admission;
+            this.iservice = iservice;
         }
 
         // GET: Bills
@@ -47,7 +53,10 @@ namespace MuskanChildrenHospitalApp.Controllers
         // GET: Bills/Create
         public IActionResult Create()
         {
-            ViewData["AddmisionId"] = new SelectList(_admission.GetAddmisions(), "id", "RegistrationNumber");
+            ViewData["AddmisionId"] = new SelectList(_admission.GetAddmisions(), "id", "RegNo");
+            ViewData["service"] = new SelectList(iservice.GetAllServices(), "id", "ServiceName");
+            //ViewData["Room"] = new SelectList(assign.GetAssignRoomsByAddId(), "id", "ServiceName");
+
             return View();
         }
 
@@ -56,18 +65,59 @@ namespace MuskanChildrenHospitalApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("BillNo,DateOfDischarge,Diagnosis,TotalAmount,Advance,Discount,Balance,AmountInWords,AddmisionId,Refund")] mBill bill)
+        public IActionResult Create(collection_Invoice coInvoice)
         {
-            if (ModelState.IsValid)
+            if (coInvoice.bill != null)
             {
-                _context.Add(bill);
-                
-                return RedirectToAction(nameof(Index));
+                mBill inv = new mBill();
+                inv.Date = coInvoice.bill.Date;
+                inv.TotalAmt = coInvoice.bill.TotalAmt;
+                inv.AdvanceAmt = coInvoice.bill.AdvanceAmt;
+                inv.RefundAmt = coInvoice.bill.RefundAmt;
+                inv.RegNo = coInvoice.bill.RegNo;
+                inv.BillNo = coInvoice.bill.BillNo;
+                inv.BalanceAmt = coInvoice.bill.BalanceAmt;
+                inv.addmisionId = coInvoice.bill.addmisionId;
+
+                mBillDetailsService detailsService = new mBillDetailsService();
+
+                foreach(var details in coInvoice.ServiceDetails)
+                {
+                    detailsService.ServiceId = details.ServiceId;
+                    detailsService.ServiceName = details.ServiceName;
+                    detailsService.Price = details.Price;
+                    detailsService.Day = details.Day;
+                    details.Amount = details.Amount;
+                }
+
             }
-            ViewData["AddmisionId"] = new SelectList(_admission.GetAddmisions(), "id", "id" ,bill.addmisionId);
-            return View(bill);
+            ViewData["AddmisionId"] = new SelectList(_admission.GetAddmisions(), "id", "id" , coInvoice.bill.addmisionId);
+            return View(coInvoice);
         }
 
+        //public SelectList GetRooms(string stateId, string selectCityId = null)
+        //{
+        //    IEnumerable<SelectListItem> cityList = new List<SelectListItem>();
+        //    if (!string.IsNullOrEmpty(stateId))
+        //    {
+        //        int _stateId = Convert.ToInt32(stateId);
+        //        cityList = (from m in db.AssignRooms where m.add == _stateId select m).AsEnumerable().Select(m => new SelectListItem() { Text = m.CityName, Value = m.CityID.ToString() });
+        //    }
+        //    return new SelectList(cityList, "Value", "Text", selectCityId);
+        //}
+        public JsonResult getServicesByAddmissionId(int addmissionId)
+        {
+            
+
+            var result = db.AssignRooms.Where(m => m.AddmissionId == addmissionId).Select(c => new
+            {
+                ID = c.RoomId,
+                Text = c.RoomName
+            });
+
+           // ViewBag["Room"] = result;
+            return Json(result);
+        }
         // GET: Bills/Edit/5
         //public async Task<IActionResult> Edit(int? id)
         //{

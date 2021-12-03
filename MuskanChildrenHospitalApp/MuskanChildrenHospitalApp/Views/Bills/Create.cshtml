@@ -1,4 +1,4 @@
-﻿@model MuskanChildrenHospitalApp.Models.Bill
+﻿@model MuskanChildrenHospitalApp.Models.collection_Invoice
 
 @{
     ViewData["Title"] = "Create";
@@ -23,30 +23,30 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label asp-for="BillNo" class="control-label"></label>
-                                <input asp-for="BillNo" class="form-control" />
-                                <span asp-validation-for="BillNo" class="text-danger"></span>
+                                <label asp-for="bill.BillNo" class="control-label"></label>
+                                <input asp-for="bill.BillNo" class="form-control" />
+                                <span asp-validation-for="bill.BillNo" class="text-danger"></span>
                             </div>
 
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label asp-for="DateOfDischarge" class="control-label"></label>
-                                <input asp-for="DateOfDischarge" class="form-control" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask id="datemask" />
-                                <span asp-validation-for="DateOfDischarge" class="text-danger"></span>
+                                <label asp-for="addmision.DateOfDischarge" class="control-label"></label>
+                                <input asp-for="addmision.DateOfDischarge" class="form-control" type="text" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask id="datemask" />
+                                <span asp-validation-for="addmision.DateOfDischarge" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label asp-for="Diagnosis" class="control-label"></label>
-                                <input asp-for="Diagnosis" class="form-control" />
-                                <span asp-validation-for="Diagnosis" class="text-danger"></span>
+                                <label asp-for="bill.Diagnosis" class="control-label"></label>
+                                <input asp-for="bill.Diagnosis" class="form-control" />
+                                <span asp-validation-for="bill.Diagnosis" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label asp-for="AddmisionId" class="control-label"></label>
-                                <select asp-for="AddmisionId" class="form-control" asp-items="ViewBag.AddmisionId"></select>
+                                <label asp-for="addmision.RegNo" class="control-label"></label>
+                                <select asp-for="addmision.RegNo" class="form-control" asp-items="ViewBag.AddmisionId" id="ddlAddmission"></select>
                             </div>
                         </div>
 
@@ -57,10 +57,64 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <table  class="table table-bordered table-striped"  >
+                            <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Sr</th>
+                                        <th>Room</th>
+                                        <th>Days</th>
+                                        <th>Charges</th>
+                                        <th> Amount</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="submissionTable" class="abc">
+
+                                    <tr id="tablerom1" asp-for>
+
+                                        <td>
+                                            <label asp-for="RoomDetails[0].roomId" class="control-label"></label>
+                                            <select asp-for="RoomDetails[0].roomId" class="form-control" id="ddlRooms" asp-items="ViewBag.Room"></select>
+                                        </td>
+                                        <td>
+                                            <label asp-for="RoomDetails[0].Days" class="control-label"></label>
+                                            <input asp-for="RoomDetails[0].Days" class="form-control one1" />
+                                            <span asp-validation-for="RoomDetails[0].Days" class="text-danger"></span>
+                                        </td>
+                                        <td>
+                                            <label asp-for="RoomDetails[0].Charge" class="control-label"></label>
+                                            <input asp-for="RoomDetails[0].Charge" class="form-control two2" />
+                                            <span asp-validation-for="RoomDetails[0].Charge" class="text-danger"></span>
+                                        </td>
+                                        <td>
+                                            <label asp-for="RoomDetails[0].Amount" class="control-label"></label>
+                                            <input asp-for="RoomDetails[0].Amount" class="form-control three3" />
+                                            <span asp-validation-for="RoomDetails[0].Amount" class="text-danger"></span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary" onclick="removeTr1(1);">Delete</button>
+                                        </td>
+                                    </tr>
+
+
+
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                        <button id="add1" class="btn btn-primary" onclick=" addrow1();">Add</button>
+                                        </td>
+                                    </tr>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
                                         <th>Particulars</th>
                                         <th>Days</th>
                                         <th>Charges</th>
@@ -70,30 +124,27 @@
                                 </thead>
                                 <tbody id="submissionTable" class="abc">
 
-                                    <tr id="tablerow1">
+                                    <tr id="tablerow1" asp-for>
+
                                         <td>
-                                            <label id="srNo" name="sr[1]" >1</label>
+                                            <label asp-for="ServiceDetails[0].ServiceId" class="control-label"></label>
+                                            <select asp-for="ServiceDetails[0].ServiceId" class="form-control" asp-items="ViewBag.service"></select>
                                         </td>
                                         <td>
-                                            <select id="Service" name="Service[0]" class="form-control select2bs4">
-                                                <option value="Registration"> Registration</option>
-                                                <option value="Phothotherapy Charges">Phothotherapy Charges</option>
-                                                <option value=" Monitor Charges"> Monitor Charges</option>
-                                                <option value=" Oxygen Charges"> Oxygen Charges</option>
-                                                <option>CPAP Charges </option>
-                                                <option value="Blood Transfusion, FFP, PCV">Blood Transfusion, FFP, PCV</option>
-                                                <option value="LP Charges">LP Charges</option>
-                                                <option value=" Oprrate Charges">Oprrate Charges</option>
-                                                <option value="OT Charges">OT Charges</option>
-                                            </select>
+                                            <label asp-for="ServiceDetails[0].Day" class="control-label"></label>
+                                            <input asp-for="ServiceDetails[0].Day" class="form-control one" />
+                                            <span asp-validation-for="ServiceDetails[0].Day" class="text-danger"></span>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control one" name="Day[1]" required="required"  />
+                                            <label asp-for="ServiceDetails[0].Price" class="control-label"></label>
+                                            <input asp-for="ServiceDetails[0].Price" class="form-control two" />
+                                            <span asp-validation-for="ServiceDetails[0].Price" class="text-danger"></span>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control two" name="charge[1]" required="required" />
+                                            <label asp-for="ServiceDetails[0].Amount" class="control-label"></label>
+                                            <input asp-for="ServiceDetails[0].Amount" class="form-control three" />
+                                            <span asp-validation-for="ServiceDetails[0].Amount" class="text-danger"></span>
                                         </td>
-                                        <td><input type="text" class="form-control three" name="Amount[1]" required="required" /></td>
                                         <td>
                                             <button type="button" class="btn btn-primary" onclick="removeTr(1);">Delete</button>
                                         </td>
@@ -111,16 +162,16 @@
                                         <td></td>
                                         <td colspan="2">
                                             <div class="form-group">
-                                                <label asp-for="AmountInWords" class="control-label"></label>
-                                                <input asp-for="AmountInWords" class="form-control" />
-                                                <span asp-validation-for="AmountInWords" class="text-danger"></span>
+                                                <label asp-for="bill.AmtInWords" class="control-label"></label>
+                                                <input asp-for="bill.AmtInWords" class="form-control" />
+                                                <span asp-validation-for="bill.AmtInWords" class="text-danger"></span>
                                             </div>
                                         </td>
                                         <td colspan="2">
                                             <div class="form-group">
-                                                <label asp-for="TotalAmount" class="control-label"></label>
-                                                <input asp-for="TotalAmount" class="form-control result" />
-                                                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+                                                <label asp-for="bill.TotalAmt" class="control-label"></label>
+                                                <input asp-for="bill.TotalAmt" class="form-control result" />
+                                                <span asp-validation-for="bill.TotalAmt" class="text-danger"></span>
                                             </div>
                                         </td>
                                     </tr>
@@ -128,38 +179,41 @@
                             </table>
                         </div>
                         <div class="col-md-1"></div>
+
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
+                            <div class="form-group">
+                                <label asp-for="bill.AdvanceAmt" class="control-label"></label>
+                                <input asp-for="bill.AdvanceAmt" class="form-control" />
+                                <span asp-validation-for="bill.AdvanceAmt" class="text-danger"></span>
+                            </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
+                            <div class="form-group">
+                                <label asp-for="bill.DiscountAmt" class="control-label"></label>
+                                <input asp-for="bill.DiscountAmt" class="form-control" />
+                                <span asp-validation-for="bill.DiscountAmt" class="text-danger"></span>
+                            </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
 
                             <div class="form-group">
-                                <label asp-for="Advance" class="control-label"></label>
-                                <input asp-for="Advance" class="form-control" />
-                                <span asp-validation-for="Advance" class="text-danger"></span>
+                                <label asp-for="bill.BalanceAmt" class="control-label"></label>
+                                <input asp-for="bill.BalanceAmt" class="form-control" />
+                                <span asp-validation-for="bill.BalanceAmt" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
-                                <label asp-for="Discount" class="control-label"></label>
-                                <input asp-for="Discount" class="form-control" />
-                                <span asp-validation-for="Discount" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Balance" class="control-label"></label>
-                                <input asp-for="Balance" class="form-control" />
-                                <span asp-validation-for="Balance" class="text-danger"></span>
-                            </div>
+                        </div>
 
+                        <div class="col-md-3">
 
                             <div class="form-group">
-                                <label asp-for="Refund" class="control-label"></label>
-                                <input asp-for="Refund" class="form-control" />
-                                <span asp-validation-for="Refund" class="text-danger"></span>
+                                <label asp-for="bill.RefundAmt" class="control-label"></label>
+                                <input asp-for="bill.RefundAmt" class="form-control" />
+                                <span asp-validation-for="bill.RefundAmt" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -194,9 +248,45 @@
 
 
 <script>
-
+    
     var counter = 2;
     $(function () {
+
+        $('#ddlAddmission').on("change", function () {
+            var addmission = $('#ddlAddmission option:selected').val()
+            
+            var obj = { addmissionId: addmission };
+                var url = '@Url.Action("getServicesByAddmissionId", "Bills")'; // Don't hard code your url's!
+            var service = $('#ddlRooms'); // cache it
+                AjaxCall(url, obj).done(function (response) {
+                    if (response.length > 0) {
+                        console.log(response);
+                        
+                       // var opts = '';
+                       // service.empty(); // remove any existing options
+                        //$.each(response, function (index, item) { // item is now an object containing properties ID and Text
+                        //  alert(item.TEXT);
+                        //    service.append($('<option value="' + item.ID + '">' + item.Text + '</option>'));
+                        //});
+                        var items = [];
+                        items.push("<option>--Choose Your Area--</option>");
+                       // service.append($('</option>').val('').text('Select Room'));
+                        $.each(response, function (index, item) {
+                            console.log(item.text);
+                            service.append($('<option></option>').text(item.text).val(item.value));
+                            //alert(item.RoomName)
+                            //service.append($('</option>').val(item.RoomId).text(item.RoomName));
+                        });
+                       // $("#ddlRooms").html(items.join(' '));;
+
+                    }
+                }).fail(function (error) {
+                    alert(error.StatusText);
+                });
+            });
+
+
+
         $("table").on("change", "input", function () {  //use event delegation
             var tableRow = $(this).closest("tr");  //from input find row
             var one = Number(tableRow.find(".one").val());  //get first textbox
@@ -211,7 +301,24 @@
             });
             $(".result").val(""+theTotal);
         });
+        $("table").on("change", "input", function () {  //use event delegation
+            var tableRow = $(this).closest("tr");  //from input find row
+            var one = Number(tableRow.find(".one1").val());  //get first textbox
+            var two = Number(tableRow.find(".two2").val());  //get second textbox
+            var total = one * two;  //calculate total
+            tableRow.find(".three3").val(total);  //set value
 
+            var theTotal = 0;
+            $(".three3").each(function () {
+                var val = Number($(this).val());
+                theTotal += parseInt(val);
+            });
+            $(".three").each(function () {
+                var val = Number($(this).val());
+                theTotal += parseInt(val);
+            });
+            $(".result").val("" + theTotal);
+        });
         //Datemask dd/mm/yyyy
         $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
         //Datemask2 mm/dd/yyyy
@@ -223,22 +330,61 @@
         })
 
     });
-
+    function AjaxCall(url, data, type) {
+        return $.ajax({
+            url: url,
+            type: type ? type : 'GET',
+            data: data,
+            contentType: 'application/json'
+        });
+    }
     function addrow() {
         $('<tr id="tablerow' + counter + '"><td>' +
-            '<label id="srNo" name="sr[' + counter + ']" >' + counter + '</label>' +
+            '     <label asp-for="ServiceDetails[' + counter + '].ServiceId" class="control-label"></label>' +
+            '<select asp-for="ServiceDetails[' + counter + '].ServiceId" class="form-control" asp-items="ViewBag.service"></select>'+
             '</td>' +
             '<td>' +
-            '    <select id="Service" name="Service[' + counter + ']"  class="form-control select2bs4"><option value = "Registration" class="form-control"> Registration</option> <option value="Phothotherapy Charges">Phothotherapy Charges</option><option value=" Monitor Charges"> Monitor Charges</option><option value=" Oxygen Charges"> Oxygen Charges</option><option>CPAP Charges </option><option value="Blood Transfusion, FFP, PCV">Blood Transfusion, FFP, PCV</option><option value="LP Charges">LP Charges</option><option value=" Oprrate Charges">Oprrate Charges</option><option value="OT Charges">OT Charges</option></select >' +
+            '<label asp-for="ServiceDetails[' + counter + '].Days" class="control-label"></label>'+
+            '< input asp -for= "ServiceDetails[' + counter + '].Days" class= "form-control one" />'+
+            '<span asp-validation-for="ServiceDetails[' + counter + '].Days" class="text-danger"></span>' +
             '</td>' +
             '<td>' +
-            '<input type="text" class="form-control one" name="Day[' + counter + ']" required="required" />' +
+            '<label asp-for="ServiceDetails[' + counter + '].Price" class="control-label"></label>' +
+            '< input asp -for= "ServiceDetails[' + counter + '].Price" class= "form-control two" />' +
+            '<span asp-validation-for="ServiceDetails[' + counter + '].Price" class="text-danger"></span>' +
             '</td>' +
             '<td>' +
-            '<input type="text" class="form-control two" name="charge[' + counter + ']" required="required" />' +
+            '<label asp-for="ServiceDetails[' + counter + '].Amount" class="control-label"></label>' +
+            '< input asp -for= "ServiceDetails[' + counter + '].Amount" class= "form-control three" />' +
+            '<span asp-validation-for="ServiceDetails[' + counter + '].Amount" class="text-danger"></span>' +
             '</td>' +
             '<td>' +
-            '<input type="text" class="form-control three" name="Amount[' + counter + ']" required="required" />' +
+            '<button type="button" class="btn btn-default" onclick="removeTr(' + counter + ');">Delete</button>' +
+            '</td>' +
+            '</tr>').appendTo('#submissionTable');
+        counter++;
+        return false;
+    }
+
+    function addrow1() {
+        $('<tr id="tablerom' + counter + '"><td>' +
+            '     <label asp-for="RoomDetails[' + counter + '].roomId" class="control-label"></label>' +
+            '<select asp-for="RoomDetails[' + counter + '].roomId" class="form-control" asp-items="ViewBag.service"></select>' +
+            '</td>' +
+            '<td>' +
+            '<label asp-for="RoomDetails[' + counter + '].Day" class="control-label"></label>' +
+            '< input asp -for= "RoomDetails[' + counter + '].Day" class= "form-control one" />' +
+            '<span asp-validation-for="RoomDetails[' + counter + '].Day" class="text-danger"></span>' +
+            '</td>' +
+            '<td>' +
+            '<label asp-for="RoomDetails[' + counter + '].Charge" class="control-label"></label>' +
+            '< input asp -for= "RoomDetails[' + counter + '].Charge" class= "form-control two" />' +
+            '<span asp-validation-for="RoomDetails[' + counter + '].Charge" class="text-danger"></span>' +
+            '</td>' +
+            '<td>' +
+            '<label asp-for="RoomDetails[' + counter + '].Amount" class="control-label"></label>' +
+            '< input asp -for= "RoomDetails[' + counter + '].Amount" class= "form-control three" />' +
+            '<span asp-validation-for="RoomDetails[' + counter + '].Amount" class="text-danger"></span>' +
             '</td>' +
             '<td>' +
             '<button type="button" class="btn btn-default" onclick="removeTr(' + counter + ');">Delete</button>' +
@@ -256,6 +402,19 @@
             //get second textbox
             $(".result").val("" + result);
             $('#tablerow' + index).remove();
+            counter--;
+        }
+        return false;
+    }
+    function removeTr1(index) {
+        if (counter > 2) {
+            var tableRow = $('#tablerom' + index);  //from input find row
+            var one = Number(tableRow.find(".three").val());  //get first textbox
+            var two = Number($(".result").val());
+            var result = two - one;
+            //get second textbox
+            $(".result").val("" + result);
+            $('#tablerom' + index).remove();
             counter--;
         }
         return false;

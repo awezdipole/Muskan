@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MuskanChildrenHospitalApp.Models.Bill>
+﻿@model IEnumerable<MuskanChildrenHospitalApp.Models.Work.mBill>
 
 @{
     ViewData["Title"] = "Index";
@@ -17,31 +17,13 @@
                 @Html.DisplayNameFor(model => model.BillNo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfDischarge)
+                @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Diagnosis)
+                @Html.DisplayNameFor(model => model.TotalAmt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TotalAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Advance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Balance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AmountInWords)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Addmision)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Refund)
+                @Html.DisplayNameFor(model => model.AdvanceAmt)
             </th>
             <th></th>
         </tr>
@@ -54,36 +36,18 @@
                     @Html.DisplayFor(modelItem => item.BillNo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateOfDischarge)
+                    @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Diagnosis)
+                    @Html.DisplayFor(modelItem => item.TotalAmt)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalAmount)
+                    @Html.DisplayFor(modelItem => item.AdvanceAmt)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Advance)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Discount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Balance)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AmountInWords)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Addmision.id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Refund)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
                 </td>
             </tr>
         }

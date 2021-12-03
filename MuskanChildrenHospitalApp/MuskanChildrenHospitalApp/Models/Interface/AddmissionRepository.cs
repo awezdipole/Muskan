@@ -52,7 +52,7 @@ namespace MuskanChildrenHospitalApp.Models.Interface
             //return _context.Addmisions.Join(_context.Patients, p=>p.PatientId, a=> a.id, (p,a)=> new {
             //    a.Name,p.DateOfDischarge,p.DateOfAddmission,p.RegNo,p.IsDischarge
             //}).ToList();
-
+           // List<Addmision> = 
             return _context.Addmisions;
         }
 

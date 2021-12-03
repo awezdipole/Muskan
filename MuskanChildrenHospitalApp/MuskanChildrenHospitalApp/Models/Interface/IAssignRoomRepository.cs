@@ -11,7 +11,7 @@ namespace MuskanChildrenHospitalApp.Models.Interface
         AssignRoom GetAssignRoom(int id);
 
         IEnumerable<AssignRoom> GetAssignRooms();
-
+        IEnumerable<AssignRoom> GetAssignRoomsByAddId(int id);
         AssignRoom Add(AssignRoom room);
         AssignRoom Update(AssignRoom roomChanges);
         AssignRoom Delete(int id);

@@ -1,0 +1,103 @@
+﻿@model IEnumerable<MuskanChildrenHospitalApp.Models.Addmision>
+
+@{
+    ViewData["Title"] = "Transfer Paitent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6"><h2>Addmissions List</h2></div>
+            <div class="col-md-6">
+               
+            </div>
+        </div>
+
+
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PatientName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegistrationNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoomName)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateOfAdmission)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateOfDischarge)
+                    </th>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsDischarge)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PatientName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoomName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateOfAdmission)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateOfDischarge)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsDischarge)
+                        </td>
+
+                        <td>
+                            <a asp-action="Create" asp-route-id="@item.id">Change Room</a> |
+                           
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+
+
+<!-- page script -->
+<script>
+    $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+        });
+    });</script>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>

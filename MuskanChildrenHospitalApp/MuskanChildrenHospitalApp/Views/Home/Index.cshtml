@@ -1,8 +1,107 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<MuskanChildrenHospitalApp.Models.Addmision>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6"><h2>Addmissions List</h2></div>
+            <div class="col-md-6">
+                <button class="float-right btn btn-primary">
+                    
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PatientName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RegistrationNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoomName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BedName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateOfAdmission)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateOfDischarge)
+                    </th>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsDischarge)
+                    </th>
+
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PatientName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoomName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BedName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfAdmission)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfDischarge)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDischarge)
+                    </td>
+
+                    
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
 </div>
+
+
+
+<!-- page script -->
+<script>
+    $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+        });
+    });</script>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>

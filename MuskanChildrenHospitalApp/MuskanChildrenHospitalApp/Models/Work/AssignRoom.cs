@@ -10,7 +10,9 @@ namespace MuskanChildrenHospitalApp.Models.Work
     {
         public int id { get; set; }
         public int? RoomId { get; set; }
-        
+
+        public string RoomName { get; set; }
+
         public int BedId { get; set; }
         //Foreign key Injected
         [ForeignKey("mkAddmision")]

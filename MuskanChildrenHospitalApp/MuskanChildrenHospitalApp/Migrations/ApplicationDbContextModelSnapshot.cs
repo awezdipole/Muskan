@@ -16,7 +16,7 @@ namespace MuskanChildrenHospitalApp.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -465,6 +465,9 @@ namespace MuskanChildrenHospitalApp.Migrations
                     b.Property<int?>("RoomId")
                         .HasColumnType("int");
 
+                    b.Property<string>("RoomName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
@@ -515,6 +518,9 @@ namespace MuskanChildrenHospitalApp.Migrations
                     b.Property<decimal>("AdvanceAmt")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("AmtInWords")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("BalanceAmt")
                         .HasColumnType("decimal(18,2)");
 
@@ -522,6 +528,9 @@ namespace MuskanChildrenHospitalApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Date")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Diagnosis")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("DiscountAmt")

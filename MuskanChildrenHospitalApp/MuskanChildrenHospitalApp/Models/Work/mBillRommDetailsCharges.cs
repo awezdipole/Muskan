@@ -16,6 +16,7 @@ namespace MuskanChildrenHospitalApp.Models.Work
         public mBill Mbills { get; set; }
         //Foreign key Injected
         [ForeignKey("Room")]
+        [DisplayName("Room")]
         public int roomId { get; set; }
         public Room rooms { get; set; }
         //Foreign key Injected

@@ -1,0 +1,151 @@
+﻿@model MuskanChildrenHospitalApp.Models.Work.AssignRoom
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h2 class=" text-center">Transfer into New Room </h2>
+            </div>
+            <form asp-action="Create">
+                <div class="card-body">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input asp-for="AddmissionId" value="@ViewBag.id" class="control-label" /> 
+                                <label class="control-label"> Reg No</label>
+                                <input value="@ViewBag.Addmisions" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label  class="control-label"> Room Name</label>
+                                <input  value="@ViewBag.RoomName" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label  class="control-label"></label>
+                                <input value="@ViewBag.BedName" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Date Of Addmission</label>
+                                <input  value="@ViewBag.Date" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"><h3> Change Details</h3></div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="RoomId" class="control-label"></label>
+                                <select asp-for="RoomId" class="form-control room" id="ddlRooms" asp-items="ViewBag.Rooms">
+                                    <option>Select Room</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="BedId" class="control-label"></label>
+                                <select asp-for="BedId" class="form-control room" id="ddlBeds" asp-items="ViewBag.beds">
+                                    <option>Select Bed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                  
+                   
+                   
+                    
+                   
+
+                   
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+/*const { Script } = require("node:vm");*/
+
+
+
+    var counter = 2;
+    $(function () {
+
+        $('#ddlBeds').on("change", function () {
+            var Room = $('#ddlBeds option:selected').val();
+            console.log(Room);
+
+        });
+
+         $('#ddlRooms').on("change", function () {
+        var Room = $('#ddlRooms option:selected').val()
+
+            var obj = { RoomId: Room };
+                var url = '@Url.Action("getBedsByRoomId", "AssignRooms")'; // Don't hard code your url's!
+             var service = $('#ddlBeds'); // cache it
+                AjaxCall(url, obj).done(function (response) {
+                    if (response.length > 0) {
+                        console.log(response);
+                        service.empty();
+                        service.append($('<option></option>').text("Select Bed").val(0));
+                        $.each(response, function (index, item) {
+                            console.log(item.id);
+
+                                // $(this) now refers to one specific <select> element
+                                // we append an option to it, like you asked for
+                            service.append($('<option></option>').text(item.text).val(item.id));
+
+
+                        });
+
+                    }
+                }).fail(function (error) {
+                    alert(error.StatusText);
+                });
+            });
+
+    });
+
+
+    function AjaxCall(url, data, type) {
+        return $.ajax({
+            url: url,
+            type: type ? type : 'GET',
+            data: data,
+            contentType: 'application/json'
+        });
+    }
+</script>

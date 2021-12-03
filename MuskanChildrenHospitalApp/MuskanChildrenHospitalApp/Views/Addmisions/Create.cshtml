@@ -5,83 +5,93 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>Addmision</h4>
-<hr />
 
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Create Room</h3>
+                <h3 class="card-title">Add New Addmission</h3> <h5>@ViewBag.RegNo</h5>
             </div>
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="PatientName" class="control-label"></label>
-                    <input asp-for="PatientName" class="form-control" />
-                    <span asp-validation-for="PatientName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Age" class="control-label"></label>
-                    <input asp-for="Age" class="form-control" />
-                    <span asp-validation-for="Age" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Sex" class="control-label"></label>
-                    <input asp-for="Sex" class="form-control" />
-                    <span asp-validation-for="Sex" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="RegistrationNumber" class="control-label"></label>
-                    <input asp-for="RegistrationNumber" class="form-control" />
-                    <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Address" class="control-label"></label>
-                    <input asp-for="Address" class="form-control" />
-                    <span asp-validation-for="Address" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="RoomId" class="control-label"></label>
-                    <select asp-for="RoomId" class="form-control" asp-items="ViewBag.RoomId"></select>
-                </div>
-                <div class="form-group">
-                    <label asp-for="BedId" class="control-label"></label>
-                    <select asp-for="BedId" class="form-control" asp-items="ViewBag.BedId"></select>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ContactNo" class="control-label"></label>
-                    <input asp-for="ContactNo" class="form-control" />
-                    <span asp-validation-for="ContactNo" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateOfAdmission" class="control-label"></label>
-                    <input asp-for="DateOfAdmission" class="form-control" />
-                    <span asp-validation-for="DateOfAdmission" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Weight" class="control-label"></label>
-                    <input asp-for="Weight" class="form-control" />
-                    <span asp-validation-for="Weight" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Refrence" class="control-label"></label>
-                    <input asp-for="Refrence" class="form-control" />
-                    <span asp-validation-for="Refrence" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TimeOfAddmision" class="control-label"></label>
-                    <input asp-for="TimeOfAddmision" class="form-control" />
-                    <span asp-validation-for="TimeOfAddmision" class="text-danger"></span>
-                </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PatientName" class="control-label"></label>
+                                <input asp-for="PatientName" class="form-control" />
+                                <span asp-validation-for="PatientName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Age" class="control-label"></label>
+                                <input asp-for="Age" class="form-control" />
+                                <span asp-validation-for="Age" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Sex" class="control-label"></label>
+                                <input asp-for="Sex" class="form-control" />
+                                <span asp-validation-for="Sex" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="RegistrationNumber" class="control-label"></label>
+                                <input asp-for="RegistrationNumber" class="form-control" value="@ViewBag.RegNo"  />
+                                <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Address" class="control-label"></label>
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ContactNo" class="control-label"></label>
+                                <input asp-for="ContactNo" class="form-control" />
+                                <span asp-validation-for="ContactNo" class="text-danger"></span>
+                            </div>
+                           
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="RoomId" class="control-label"></label>
+                                <select asp-for="RoomId" class="form-control" id="ddlRooms" asp-items="ViewBag.RoomId">
+                                    <option>Select Room</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="BedId" class="control-label"></label>
+                                <select asp-for="BedId" class="form-control" id="ddlBeds"></select>
+                            </div>
 
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
+                            <div class="form-group">
+                                <label asp-for="DateOfAdmission" class="control-label"></label>
+                                <input asp-for="DateOfAdmission" class="form-control" />
+                                <span asp-validation-for="DateOfAdmission" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Weight" class="control-label"></label>
+                                <input asp-for="Weight" class="form-control" />
+                                <span asp-validation-for="Weight" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Refrence" class="control-label"></label>
+                                <input asp-for="Refrence" class="form-control" />
+                                <span asp-validation-for="Refrence" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TimeOfAddmision" class="control-label"></label>
+                                <input asp-for="TimeOfAddmision" class="form-control" />
+                                <span asp-validation-for="TimeOfAddmision" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
         </div>
 
     </div>
@@ -92,10 +102,82 @@
 
 <div class="row">
     <div class="col-md-4">
-      
+
     </div>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script>
+/*const { Script } = require("node:vm");*/
+
+
+
+    var counter = 2;
+    $(function () {
+        $('#ddlBeds').on("change", function () {
+            var Room = $('#ddlBeds option:selected').val();
+            console.log(Room);
+            var obj = { RoomId: Room };
+                var url = '@Url.Action("SetBedId", "Addmisions")'; // Don't hard code your url's!
+             //var service = $('#ddlBeds'); // cache it
+                AjaxCall(url, obj).done(function (response) {
+                    if (response.length > 0) {
+                        console.log(response);
+                        //service.empty();
+                        //$.each(response, function (index, item) {
+                        //    console.log(item.text);
+
+                        //        // $(this) now refers to one specific <select> element
+                        //        // we append an option to it, like you asked for
+                        //    service.append($('<option></option>').text(item.text).val(item.value));
+
+
+                        //});
+
+                    }
+                }).fail(function (error) {
+                    alert(error.StatusText);
+                });
+            });
+        
+         $('#ddlRooms').on("change", function () {
+        var Room = $('#ddlRooms option:selected').val()
+
+            var obj = { RoomId: Room };
+                var url = '@Url.Action("getBedsByRoomId", "Addmisions")'; // Don't hard code your url's!
+             var service = $('#ddlBeds'); // cache it
+                AjaxCall(url, obj).done(function (response) {
+                    if (response.length > 0) {
+                        console.log(response);
+                        service.empty();
+                        $.each(response, function (index, item) {
+                            console.log(item.text);
+                           
+                                // $(this) now refers to one specific <select> element
+                                // we append an option to it, like you asked for
+                            service.append($('<option></option>').text(item.text).val(item.id));
+
+
+                        });
+
+                    }
+                }).fail(function (error) {
+                    alert(error.StatusText);
+                });
+            });
+
+    });
+
+
+    function AjaxCall(url, data, type) {
+        return $.ajax({
+            url: url,
+            type: type ? type : 'GET',
+            data: data,
+            contentType: 'application/json'
+        });
+    }
+</script>
