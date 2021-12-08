@@ -332,9 +332,11 @@
 
         });
 
-        $('#ddlRooms').on("change", function () {
-            var addmission = $('#ddlRooms option:selected').val()
-
+        $("#RoomTable [id*='ddlRooms']").on("change", function () {
+            debugger;
+            var addmission = $("#RoomTable [id*='ddlRooms']").val()
+                // Find the closest row and find your 'cbo' element and get its value
+            var state = $(this).closest('tr').find("input[type='text'][name='RoomDetails[0].Charge']").val();
             var obj = { addmissionId: addmission };
                 var url = '@Url.Action("roomchragesbyid", "Invoice")'; // Don't hard code your url's!
             var service = $("input[type='text'][name='RoomDetails[0].Charge']"); // cache it
@@ -343,7 +345,7 @@
                         debugger;
                         console.log(response.TotalCharges);
                        
-                        service.val(response.TotalCharges);
+                        state.val(response.TotalCharges);
 
                     }
                 }).fail(function (error) {
@@ -363,6 +365,8 @@
                         if (response.length == 1) {
                             $('#add1').disableSelection;
                         }
+                        service.empty(); // remove any existing options
+                        service.append($('<option></option>').text('Select Room').val(0));
                         $.each(response, function (index, item) {
                             console.log(item.text);
                             $('select.room').each(function () {
@@ -458,7 +462,7 @@
             '<span asp-validation-for="RoomDetails[' + counter + '].Amount" class="text-danger"></span>' +
             '</td>' +
             '<td>' +
-            '<button type="button" class="btn btn-default" onclick="removeTr(' + counter + ');">Delete</button>' +
+            '<button type="button" class="btn btn-default" onclick="removeTr1(' + counter + ');">Delete</button>' +
             '</td>' +
             '</tr>').appendTo('#submissionTable');
         counter++;
@@ -478,6 +482,7 @@
         return false;
     }
     function removeTr1(index) {
+        debugger;
         if (counter > 2) {
             var tableRow = $('#tablerom' + index);  //from input find row
             var one = Number(tableRow.find(".three").val());  //get first textbox
