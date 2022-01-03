@@ -37,6 +37,10 @@ namespace MuskanChildrenHospitalApp.Models.Work
         [Column(TypeName = "decimal(18,2)")]
         [DisplayName("Discount Amount")]
         public decimal DiscountAmt { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        [DisplayName("Paid Amount")]
+        public decimal PaidAmt { get; set; }
         public string BillNo { get; set; }
 
         public ICollection<mBillDetailsService> mServices { get; set; }

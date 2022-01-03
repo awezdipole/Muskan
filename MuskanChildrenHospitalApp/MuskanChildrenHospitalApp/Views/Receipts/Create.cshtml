@@ -17,46 +17,68 @@
                 <h3 class="card-title">Receipt</h3>
             </div>
                <div class="card-body">
-            <form asp-action="Create">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Name" class="control-label"></label>
-                        <input asp-for="Name" class="form-control" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Date" class="control-label"></label>
-                        <input asp-for="Date" class="form-control" />
-                        <span asp-validation-for="Date" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Amount" class="control-label"></label>
-                        <input asp-for="Amount" class="form-control" />
-                        <span asp-validation-for="Amount" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ReceiptNo" class="control-label"></label>
-                        <input asp-for="ReceiptNo" class="form-control" />
-                        <span asp-validation-for="ReceiptNo" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="RegistrationNumber" class="control-label"></label>
-                        <input asp-for="RegistrationNumber" class="form-control" />
-                        <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="AddmisionId" class="control-label"></label>
-                        <select asp-for="AddmisionId" class="form-control" asp-items="ViewBag.AddmisionId"></select>
-                    </div>
-                    @*<div class="form-group">
-                        <label asp-for="HeadsId" class="control-label"></label>
-                        <select asp-for="HeadsId" class="form-control" asp-items="ViewBag.HeadsId"></select>
-                    </div>*@
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
-            
-            </form>
+                   <form asp-action="Create">
+                       <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                       <div class="row">
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label asp-for="Name" class="control-label"></label>
+                                   <input asp-for="Name" class="form-control" />
+                                   <span asp-validation-for="Name" class="text-danger"></span>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label asp-for="Date" class="control-label"></label>
+                                   <input asp-for="Date" class="form-control" />
+                                   <span asp-validation-for="Date" class="text-danger"></span>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label asp-for="Amount" class="control-label"></label>
+                                   <input asp-for="Amount" class="form-control" />
+                                   <span asp-validation-for="Amount" class="text-danger"></span>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label asp-for="ReceiptNo" class="control-label"></label>
+                                   <input asp-for="ReceiptNo" class="form-control" />
+                                   <span asp-validation-for="ReceiptNo" class="text-danger"></span>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label asp-for="RegistrationNumber" class="control-label"></label>
+                                   <input asp-for="RegistrationNumber" class="form-control" />
+                                   <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label asp-for="AddmisionId" class="control-label"></label>
+                                   <select asp-for="AddmisionId" class="form-control" asp-items="ViewBag.AddmisionId"></select>
+                               </div>
+                           </div>
+                       </div>
+                      
+                     
+                      
+                      
+                    
+                      
+                       @*<div class="form-group">
+            <label asp-for="HeadsId" class="control-label"></label>
+            <select asp-for="HeadsId" class="form-control" asp-items="ViewBag.HeadsId"></select>
+        </div>*@
+                       <div class="form-group">
+                           <input type="submit" value="Create" class="btn btn-primary" />
+                       </div>
+
+                   </form>
         </div>
             </div>
     </div>

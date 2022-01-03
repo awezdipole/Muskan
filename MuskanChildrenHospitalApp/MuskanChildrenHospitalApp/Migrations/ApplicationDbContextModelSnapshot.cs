@@ -536,6 +536,9 @@ namespace MuskanChildrenHospitalApp.Migrations
                     b.Property<decimal>("DiscountAmt")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal>("PaidAmt")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("RefundAmt")
                         .HasColumnType("decimal(18,2)");
 

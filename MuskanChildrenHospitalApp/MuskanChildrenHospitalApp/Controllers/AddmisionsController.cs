@@ -117,11 +117,12 @@ namespace MuskanChildrenHospitalApp.Controllers
                 int number = 0;
                 number = Convert.ToInt32(enquiryNumber.Substring(5));
 
-                EnNumber = string.Format("{0}{1:0000}", DateTime.Now.Year, ++number);
+                EnNumber = string.Format("RN{0}{1}{2:0000}", DateTime.Now.ToString("yy"), DateTime.Now.ToString("MM") , ++number);
             }
             else
             {
-                EnNumber = string.Format("{0}{1:0000}", DateTime.Now.Year, 1);
+                EnNumber = string.Format("RN{0}{1}{2:0000}", DateTime.Now.ToString("yy"), DateTime.Now.ToString("MM"), 1);
+                // EnNumber = string.Format("{0}{1:0000}", DateTime.Now.Year, 1);
             }
             return EnNumber;
         }

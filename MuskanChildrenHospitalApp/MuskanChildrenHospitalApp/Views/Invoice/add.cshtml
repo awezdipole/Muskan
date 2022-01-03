@@ -24,7 +24,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="bill.BillNo" class="control-label"></label>
-                                <input asp-for="bill.BillNo" class="form-control" />
+                                <input asp-for="bill.BillNo" class="form-control" id="txtBillNo" />
                                 <span asp-validation-for="bill.BillNo" class="text-danger"></span>
                             </div>
 
@@ -39,71 +39,94 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="bill.Diagnosis" class="control-label"></label>
-                                <input asp-for="bill.Diagnosis" class="form-control" />
+                                <input asp-for="bill.Diagnosis" class="form-control" id="txtDiagnosis" />
                                 <span asp-validation-for="bill.Diagnosis" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="addmision.RegNo" class="control-label"></label>
-                                <select asp-for="addmision.RegNo" class="form-control" asp-items="ViewBag.AddmisionId" id="ddlAddmission"></select>
+                                <select asp-for="addmision.RegNo" class="form-control" asp-items="ViewBag.AddmisionId" id="ddlAddmission">
+                                    <opion>Select RegNo</opion>
+                                </select>
                             </div>
                         </div>
 
                     </div>
                     <br />
-                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="control-label"></label>
+                            <select class="form-control room" id="ddlService" asp-items="ViewBag.service"></select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label"></label>
+                            <input id="txtServiceQty" value="0" class="form-control one1" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label"></label>
+                            <input id="txtServicePrice" value="0" class="form-control two2" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label"></label>
+                            <input id="txtServiceAmount" value="0" class="form-control three3" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <br />
+                        <div class="col-md-3">
+                            <button id="add" class="btn btn-primary">Add Service</button>
+                        </div>
 
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="control-label"></label>
+                            <select class="form-control room" id="ddlRooms" asp-items="ViewBag.Room"></select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label"></label>
+                            <input id="txtQty" value="0" class="form-control one1" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label"></label>
+                            <input id="txtPrice" value="0" class="form-control two2" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="control-label"></label>
+                            <input id="txtAmount" value="0" class="form-control three3" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <br />
+                        <div class="col-md-3">
+                            <button id="add1" class="btn btn-primary">Add</button>
+                        </div>
+
+                    </div>
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped" id="tblRoom">
                                 <thead>
                                     <tr>
                                         <th>Room</th>
+                                        
                                         <th>Days</th>
                                         <th>Charges</th>
                                         <th> Amount</th>
                                         <th></th>
                                     </tr>
-                                    <tr id="tablerom1" asp-for>
 
-                                        <td>
-                                            <label asp-for="RoomDetails[0].roomId" class="control-label"></label>
-                                            <select asp-for="RoomDetails[0].roomId" class="form-control room" id="ddlRooms" asp-items="ViewBag.Room"></select>
-                                        </td>
-                                        <td>
-                                            <label asp-for="RoomDetails[0].Days" class="control-label"></label>
-                                            <input asp-for="RoomDetails[0].Days" class="form-control one1" />
-                                            <span asp-validation-for="RoomDetails[0].Days" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <label asp-for="RoomDetails[0].Charge" class="control-label"></label>
-                                            <input asp-for="RoomDetails[0].Charge" class="form-control two2" />
-                                            <span asp-validation-for="RoomDetails[0].Charge" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <label asp-for="RoomDetails[0].Amount" class="control-label"></label>
-                                            <input asp-for="RoomDetails[0].Amount" class="form-control three3" />
-                                            <span asp-validation-for="RoomDetails[0].Amount" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <button id="add1" class="btn btn-primary">Add</button>
-                                        </td>
-                                    </tr>
                                 </thead>
                                 <tbody id="RoomTable" class="abc">
-
-                                    
-
-
-
-
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="5">
-                                            
                                         </td>
                                     </tr>
 
@@ -113,49 +136,20 @@
                         <div class="col-md-1"></div>
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped" id="tblService">
                                 <thead>
                                     <tr>
                                         <th>Particulars</th>
+
+                                        <th style="display:none;">ID</th>
                                         <th>Days</th>
                                         <th>Charges</th>
                                         <th> Amount</th>
                                         <th></th>
                                     </tr>
 
-                                    <tr id="tablerow1" asp-for>
-
-                                        <td>
-                                            <label asp-for="ServiceDetails[0].ServiceId" class="control-label"></label>
-                                            <select asp-for="ServiceDetails[0].ServiceId" class="form-control" asp-items="ViewBag.service" id="ddlService"></select>
-                                        </td>
-                                        <td>
-                                            <label asp-for="ServiceDetails[0].Day" class="control-label"></label>
-                                            <input asp-for="ServiceDetails[0].Day" class="form-control one" />
-                                            <span asp-validation-for="ServiceDetails[0].Day" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <label asp-for="ServiceDetails[0].Price" class="control-label"></label>
-                                            <input asp-for="ServiceDetails[0].Price" class="form-control two" />
-                                            <span asp-validation-for="ServiceDetails[0].Price" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <label asp-for="ServiceDetails[0].Amount" class="control-label"></label>
-                                            <input asp-for="ServiceDetails[0].Amount" class="form-control three" />
-                                            <span asp-validation-for="ServiceDetails[0].Amount" class="text-danger"></span>
-                                        </td>
-                                        <td>
-                                            <button id="add" class="btn btn-primary">Add</button>
-                                        </td>
-                                    </tr>
-
-
                                 </thead>
                                 <tbody id="submissionTable" class="abc">
-
-                                   
-
-
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -164,18 +158,8 @@
                                     <tr>
                                         <td></td>
                                         <td colspan="2">
-                                            <div class="form-group">
-                                                <label asp-for="bill.AmtInWords" class="control-label"></label>
-                                                <input asp-for="bill.AmtInWords" class="form-control" />
-                                                <span asp-validation-for="bill.AmtInWords" class="text-danger"></span>
-                                            </div>
                                         </td>
                                         <td colspan="2">
-                                            <div class="form-group">
-                                                <label asp-for="bill.TotalAmt" class="control-label"></label>
-                                                <input asp-for="bill.TotalAmt" class="form-control result" />
-                                                <span asp-validation-for="bill.TotalAmt" class="text-danger"></span>
-                                            </div>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -184,21 +168,44 @@
                         <div class="col-md-1"></div>
 
                     </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="bill.AmtInWords" class="control-label"></label>
+                                <input asp-for="bill.AmtInWords" class="form-control" id="txtAmtWr"/>
+                                <span asp-validation-for="bill.AmtInWords" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="bill.TotalAmt" class="control-label"></label>
+                                <input asp-for="bill.TotalAmt" class="form-control result" id="txtTotalAmount" />
+                                <span asp-validation-for="bill.TotalAmt" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="bill.AdvanceAmt" class="control-label"></label>
+                                <input asp-for="bill.AdvanceAmt" class="form-control adv" id="txtAdvanceAmount" value="0" />
+                                <span asp-validation-for="bill.AdvanceAmt" class="text-danger"></span>
+                            </div>
 
+                            <div class="col-md-3"></div>
+                        </div>
                     <div class="row">
                         <div class="col-md-3">
 
                             <div class="form-group">
-                                <label asp-for="bill.AdvanceAmt" class="control-label"></label>
-                                <input asp-for="bill.AdvanceAmt" class="form-control" />
-                                <span asp-validation-for="bill.AdvanceAmt" class="text-danger"></span>
+                                <label asp-for="bill.PaidAmt" class="control-label"></label>
+                                <input asp-for="bill.PaidAmt" class="form-control" id="txtPaidAmt" value="0" />
+                                <span asp-validation-for="bill.PaidAmt" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
 
                             <div class="form-group">
                                 <label asp-for="bill.DiscountAmt" class="control-label"></label>
-                                <input asp-for="bill.DiscountAmt" class="form-control" />
+                                <input asp-for="bill.DiscountAmt" class="form-control" value="0" id="txtDiscountAmt" />
                                 <span asp-validation-for="bill.DiscountAmt" class="text-danger"></span>
                             </div>
                         </div>
@@ -206,7 +213,7 @@
 
                             <div class="form-group">
                                 <label asp-for="bill.BalanceAmt" class="control-label"></label>
-                                <input asp-for="bill.BalanceAmt" class="form-control" />
+                                <input asp-for="bill.BalanceAmt" class="form-control bal" value="0" id="txtBalanceAmount" />
                                 <span asp-validation-for="bill.BalanceAmt" class="text-danger"></span>
                             </div>
                         </div>
@@ -215,116 +222,356 @@
 
                             <div class="form-group">
                                 <label asp-for="bill.RefundAmt" class="control-label"></label>
-                                <input asp-for="bill.RefundAmt" class="form-control" />
+                                <input asp-for="bill.RefundAmt" class="form-control" value="0" id="txtRefundAmount" />
                                 <span asp-validation-for="bill.RefundAmt" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-primary" />
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="form-group">
+                                <input type="button" value="Save Invoice" class="btn btn-primary" onclick="dataInsert();" />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
 
+            </div>
         </div>
+        <div class="col-md-1"></div>
     </div>
-    <div class="col-md-1"></div>
-</div>
 
 
 
 
-<div class="row">
-    <div class="col-md-4">
-
+ 
+    <div>
+        <a asp-action="Index">Back to List</a>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 
-<script>
+    <script>
 
+
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function saveOrder(data) {
+          //  var url = window.location.href;
+           // var UserId = url.substring(url.lastIndexOf('/') + 1);
+
+
+            return $.ajax({
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                type: 'POST',
+                url: "/Invoice/add/" ,
+                data: data,
+                success: function (data) {
+                    alert(data);
+                   // window.location.href = "/Invoice/generatePdf/" + parseInt(data);
+                },
+                error: function (a, b) {
+                    console.log(a);
+                    console.log(b);
+
+                    alert("Error!")
+                }
+            });
+        }
+        //Collect Multiple Order List For Pass To Controller
+        function dataInsert() {
+
+            var ServiceArr = [];
+            ServiceArr.length = 0;
+            var RoomArr = [];
+            RoomArr.length = 0;
+            $.each($("#RoomTable tr"), function () {
+
+                RoomArr.push({
+
+                    roomId: $(this).find('td:eq(0)').html(),
+                    Charge: $(this).find('td:eq(1)').html(),
+                    Days: $(this).find('td:eq(2)').html(),
+                    Amount: $(this).find('td:eq(3)').html()
+                });
+            });
+
+            $.each($("#submissionTable tr"), function () {
+
+                ServiceArr.push({
+
+
+                    serviceId: $(this).find('td:eq(0)').html(),
+                    ServiceName: $(this).find('td:eq(1)').html(),
+                    Price: $(this).find('td:eq(2)').html(),
+                    qty: $(this).find('td:eq(3)').html(),
+                    amount: $(this).find('td:eq(4)').html()
+                });
+            });
+            // $(this).find('td:eq(15)').html()
+           // var grandTotal = $('#totals td:eq(15)').html();
+
+            var bill = $("#txtBillNo").val();
+            console.log(bill);
+
+            var data = JSON.stringify({
+                BillNo: bill,
+                Date: $("#datemask").val(),
+                Diagnosis: $("#txtDiagnosis").val(),
+                RegNo: $("#ddlAddmission option:selected").text(),
+                addmisionId: $("#ddlAddmission option:selected").val(),
+                AmtInWords: $("#txtAmtWr").val(),
+                TotalAmt: $("#txtTotalAmount").val(),
+                AdvanceAmt: $("#txtAdvanceAmount").val(),
+                BalanceAmt: $("#txtBalanceAmount").val(),
+                RefundAmt: $("#txtRefundAmount").val(),
+                DiscountAmt: $("#txtDiscountAmt").val(),
+                PaidAmt: $("#txtPaidAmt").val(),
+                Services: ServiceArr,
+                Roomdetails: RoomArr
+            });
+            console.log(data);
+            $.when(saveOrder(data)).then(function (response) {
+                //console.log(response);
+            }).fail(function (err) {
+                // console.log(err);
+            });
+        }
 
 
     var counter = 2;
     $(function () {
+        //$.get("getservices", {}, function (data) {
+        //    var row;
+        //    console.log(data);
+        //    $.each(data, function (i, v1) {
+        //        console.log(v1.charges);
+        //        row += '<tr id="tablerow' + i + '"><td style="display:none;">' +
+        //            '     <label asp-for="ServiceDetails[' + i + '].ServiceId" class="control-label hidden"></label>' +
+        //            '<input asp -for= "ServiceDetails[' + i + '].ServiceId" value="' + v1.id + '"  class= "form-control hidden " />' +
+        //            '</td>' +
+        //            '<td>' +
+        //            '<label asp-for="ServiceDetails[' + i + '].ServiceName" class="control-label hidden"></label>' +
+        //            '<input asp -for= "ServiceDetails[' + i + '].ServiceName" value=""  class= "form-control hidden " />' +
+        //            '</td>' +
+        //            '<td>' +
+        //            '<label asp-for="ServiceDetails[' + i + '].Day" class="control-label"></label>' +
+        //            '<input asp -for= "ServiceDetails[' + i + '].Day"  value="0"  class= "form-control one" />' +
+        //            '<span asp-validation-for="ServiceDetails[' + i + '].Day" class="text-danger"></span>' +
+        //            '</td>' +
+        //            '<td>' +
+        //            '<label asp-for="ServiceDetails[' + i + '].Price" class="control-label"></label>' +
+        //            '<input asp -for= "ServiceDetails[' + i + '].Price" value="' + v1.charges + '" class= "form-control two" />' +
+        //            '<span asp-validation-for="ServiceDetails[' + i + '].Price" class="text-danger"></span>' +
+        //            '</td>' +
+        //            '<td>' +
+        //            '<label asp-for="ServiceDetails[' + i + '].Amount" class="control-label"></label>' +
+        //            '<input asp -for= "ServiceDetails[' + i + '].Amount" value="0" class= "form-control three" />' +
+        //            '<span asp-validation-for="ServiceDetails[' + i + '].Amount" class="text-danger"></span>' +
+        //            '</td>' +
+        //            '<td>' +
+        //            '<button type="button" class="btn btn-default" onclick="removeTr(' + i + ');">Delete</button>' +
+        //            '</td>' +
+        //            '</tr>';
+
+
+        //    });
+        //    $('#submissionTable').append(row);
+        //})
 
         $('#add').on("click", function () {
             var tableRow = $("#tablerom1");  //from input find row
-            var one = $("input[type='number'][name='ServiceDetails[0].Days']").val();  //get first textbox
-            var two = $("input[type='text'][name='ServiceDetails[0].Price']").val(); //get second textbox
-            var total = $("input[type='text'][name='ServiceDetails[0].Amount']").val();
-            var roomid = $("#ddlService option:selected").val();;
+            var one = $("#txtServiceQty").val();  //get first textbox
+            var two = $("#txtServicePrice").val(); //get second textbox
+            var total = $("#txtServiceAmount").val();
+            var serviceId = $("#ddlService option:selected").text();
 
-            $('<tr id="tablerow' + counter + '"><td>' +
-                '     <label asp-for="ServiceDetails[' + counter + '].ServiceId" class="control-label"></label>' +
-                '<input asp -for= "ServiceDetails[' + counter + '].ServiceId" value="' + roomid +'"  class= "form-control one" />' +
-                '</td>' +
-                '<td>' +
-                '<label asp-for="ServiceDetails[' + counter + '].Days" class="control-label"></label>' +
-                '<input asp -for= "ServiceDetails[' + counter + '].Days"  value="' + one +'"  class= "form-control one" />' +
-                '<span asp-validation-for="ServiceDetails[' + counter + '].Days" class="text-danger"></span>' +
-                '</td>' +
-                '<td>' +
-                '<label asp-for="ServiceDetails[' + counter + '].Price" class="control-label"></label>' +
-                '<input asp -for= "ServiceDetails[' + counter + '].Price" value="' + two +'" class= "form-control two" />' +
-                '<span asp-validation-for="ServiceDetails[' + counter + '].Price" class="text-danger"></span>' +
-                '</td>' +
-                '<td>' +
-                '<label asp-for="ServiceDetails[' + counter + '].Amount" class="control-label"></label>' +
-                '<input asp -for= "ServiceDetails[' + counter + '].Amount" value="' + total +'" class= "form-control three" />' +
-                '<span asp-validation-for="ServiceDetails[' + counter + '].Amount" class="text-danger"></span>' +
-                '</td>' +
-                '<td>' +
+            $('<tr id="tablerow' + counter + '"><td class=" total-ignore">'
+                + $('#ddlService').find(":selected").text() + "</td>" +
+                '<td style="display:none;"  class=" total-ignore">'
+                + $('#ddlService option:selected').val() + "</td>" +
+                '<td  class=" total-ignore">'
+                + one + "</td>" +
+                '<td  class=" total-ignore">'
+                + two + "</td>" +
+                '<td class=" three a">' +
+               total + "</td>" +
+                '<td  class=" total-ignore">'+
                 '<button type="button" class="btn btn-default" onclick="removeTr(' + counter + ');">Delete</button>' +
                 '</td>' +
                 '</tr>').appendTo('#submissionTable');
             counter++;
+
+            var theTotal = 0;
+
+            // Go through each row
+            $('#submissionTable').find('tr').each(function () {
+                var $row = $(this);
+
+
+                // $row.children('td').select('#grandTotal').val;
+                // Then each column
+                $row.children('td').not('.total-ignore').each(function (index) {
+                    // "Initialize" the totals array. Basically this equals itself or 0. 
+                    // This is important because you can't add to undefined!
+                    theTotal = theTotal || 0;
+
+                    // Add the total. This will either add the value if it's a number
+                    // or 0 if it's blank/not a number
+                    theTotal += parseInt($(this).text()) || 0;
+                });
+            })
+
+            $('#RoomTable').find('tr').each(function () {
+                var $row = $(this);
+
+
+                // $row.children('td').select('#grandTotal').val;
+                // Then each column
+                $row.children('td').not('.total-ignore').each(function (index) {
+                    // "Initialize" the totals array. Basically this equals itself or 0. 
+                    // This is important because you can't add to undefined!
+                    theTotal = theTotal || 0;
+
+                    // Add the total. This will either add the value if it's a number
+                    // or 0 if it's blank/not a number
+                    theTotal += parseInt($(this).text()) || 0;
+                });
+            })
+
+            //$(".a").each(function () {
+            //    var val = Number($(".a").html());
+            //    theTotal += parseInt(val);
+            //});
+            //$("#RoomTable tr ").each(function () {
+            //    var val = Number($('#RoomTable td:eq(3)').html());
+            //    theTotal += parseInt(val);
+            //});
+            //$(".three").each(function () {
+            //    var val = Number($(this).val());
+            //    theTotal += parseInt(val);
+            //});
+            console.log(theTotal);
+            $("#txtTotalAmount").val("" + theTotal);
+            var advanceAmount = $("#txtAdvanceAmount").val();
+            var totalAmount = $(".result").val();
+            var amount = totalAmount - advanceAmount;
+
+            //console.log(amount);
+            $("#txtBalanceAmount").val(amount);
+            
+            serviceTxtClear();
             return false;
 
 
 
 
         });
+
+
         $('#add1').on("click", function () {
             var tableRow = $("#tablerom1");  //from input find row
-            var one = $("input[type='number'][name='RoomDetails[0].Days']").val();  //get first textbox
-            var two = $("input[type='text'][name='RoomDetails[0].Charge']").val(); //get second textbox
-            var total = $("input[type='text'][name='RoomDetails[0].Amount']").val();
-            var roomid = $("#ddlRooms option:selected").text();;
+            var one = $("#txtQty").val();  //get first textbox
+            var two = $("#txtPrice").val(); //get second textbox
+            var total = $("#txtAmount").val();
+            var roomid = $("#ddlRooms option:selected").text();
 
-            $('<tr id="tablerom' + counter + '"><td>' +
-                '     <label asp-for="RoomDetails[' + counter + '].roomId" class="control-label"></label>' +
-                '<input asp -for= "RoomDetails[' + counter + '].roomId" value="' + roomid +'" class= "form-control one" />' +
-                '</td>' +
-                '<td>' +
-                '<label asp-for="RoomDetails[' + counter + '].Days" class="control-label"></label>' +
-                '<input asp -for= "RoomDetails[' + counter + '].Days" value="' + one +'" class= "form-control one" />' +
-                '<span asp-validation-for="RoomDetails[' + counter + '].Days" class="text-danger"></span>' +
-                '</td>' +
-                '<td>' +
-                '<label asp-for="RoomDetails[' + counter + '].Charge" class="control-label"></label>' +
-                '<input asp -for= "RoomDetails[' + counter + '].Charge" value="' + two +'" class= "form-control two" />' +
-                '<span asp-validation-for="RoomDetails[' + counter + '].Charge" class="text-danger"></span>' +
-                '</td>' +
-                '<td>' +
-                '<label asp-for="RoomDetails[' + counter + '].Amount" class="control-label"></label>' +
-                '<input asp -for= "RoomDetails[' + counter + '].Amount" value="' + total +'" class= "form-control three" />' +
-                '<span asp-validation-for="RoomDetails[' + counter + '].Amount" class="text-danger"></span>' +
-                '</td>' +
-                '<td>' +
+
+            $('<tr id="tablerow' + counter + '"><td class=" total-ignore">'
+                + $('#ddlRooms').find(":selected").text() + "</td>" +
+                '<td class=" total-ignore">'
+                + one + "</td>" +
+                '<td class=" total-ignore">'
+                + two + "</td>" +
+                '<td class=" three a">' +
+                total + "</td>" +
+                '<td class=" total-ignore">' +
                 '<button type="button" class="btn btn-default" onclick="removeTr(' + counter + ');">Delete</button>' +
                 '</td>' +
                 '</tr>').appendTo('#RoomTable');
+
+
+            //$('<tr id="tablerom' + counter + '"><td>' +
+            //    '     <label asp-for="RoomDetails[' + counter + '].roomId" class="control-label"></label>' +
+            //    '<input asp -for= "RoomDetails[' + counter + '].roomId" value="' + roomid +'" class= "form-control one" />' +
+            //    '</td>' +
+            //    '<td>' +
+            //    '<label asp-for="RoomDetails[' + counter + '].Days" class="control-label"></label>' +
+            //    '<input asp -for= "RoomDetails[' + counter + '].Days" value="' + one +'" class= "form-control one" />' +
+            //    '<span asp-validation-for="RoomDetails[' + counter + '].Days" class="text-danger"></span>' +
+            //    '</td>' +
+            //    '<td>' +
+            //    '<label asp-for="RoomDetails[' + counter + '].Charge" class="control-label"></label>' +
+            //    '<input asp -for= "RoomDetails[' + counter + '].Charge" value="' + two +'" class= "form-control two" />' +
+            //    '<span asp-validation-for="RoomDetails[' + counter + '].Charge" class="text-danger"></span>' +
+            //    '</td>' +
+            //    '<td>' +
+            //    '<label asp-for="RoomDetails[' + counter + '].Amount" class="control-label"></label>' +
+            //    '<input asp -for= "RoomDetails[' + counter + '].Amount" value="' + total +'" class= "form-control three" />' +
+            //    '<span asp-validation-for="RoomDetails[' + counter + '].Amount" class="text-danger"></span>' +
+            //    '</td>' +
+            //    '<td>' +
+            //    '<button type="button" class="btn btn-default" onclick="removeTr(' + counter + ');">Delete</button>' +
+            //    '</td>' +
+            //    '</tr>').appendTo('#RoomTable');
             counter++;
+
+
+
+
+
+            var theTotal = 0;
+            $('#submissionTable').find('tr').each(function () {
+                var $row = $(this);
+
+
+                // $row.children('td').select('#grandTotal').val;
+                // Then each column
+                $row.children('td').not('.total-ignore').each(function (index) {
+                    // "Initialize" the totals array. Basically this equals itself or 0. 
+                    // This is important because you can't add to undefined!
+                    theTotal = theTotal || 0;
+
+                    // Add the total. This will either add the value if it's a number
+                    // or 0 if it's blank/not a number
+                    theTotal += parseInt($(this).text()) || 0;
+                });
+            })
+
+            $('#RoomTable').find('tr').each(function () {
+                var $row = $(this);
+
+
+                // $row.children('td').select('#grandTotal').val;
+                // Then each column
+                $row.children('td').not('.total-ignore').each(function (index) {
+                    // "Initialize" the totals array. Basically this equals itself or 0. 
+                    // This is important because you can't add to undefined!
+                    theTotal = theTotal || 0;
+
+                    // Add the total. This will either add the value if it's a number
+                    // or 0 if it's blank/not a number
+                    theTotal += parseInt($(this).text()) || 0;
+                });
+            })
+            //$("#RoomTable td:eq(3)").each(function () {
+            //    var val = Number($('#RoomTable td:eq(3)').html());
+            //    theTotal += parseInt(val);
+            //});
+            //$(".three").each(function () {
+            //    var val = Number($(this).val());
+            //    theTotal += parseInt(val);
+            //});
+            console.log(theTotal);
+            $("#txtTotalAmount").val("" + theTotal);
+            var advanceAmount = $("#txtAdvanceAmount").val();
+            var totalAmount = $(".result").val();
+            var amount = totalAmount - advanceAmount;
+
+            //console.log(amount);
+            $("#txtBalanceAmount").val(amount);
+            RoomTxtClear();
             return false;
 
 
@@ -332,20 +579,79 @@
 
         });
 
-        $("#RoomTable [id*='ddlRooms']").on("change", function () {
+        //Amount Amount Cal for room charges based on Quanty change
+        $("#txtQty").on("change", function () {
+            var price = $("#txtPrice").val();
+            var qty = $("#txtQty").val();
+            var amount = price * qty;
+            $("#txtAmount").val(amount);
+        });
+
+        //Amount Amount Cal for service charges based on Quanty change
+        $("#txtServiceQty").on("change", function () {
+            var price = $("#txtServicePrice").val();
+            var qty = $("#txtServiceQty").val();
+            var amount = price * qty;
+            $("#txtServiceAmount").val(amount);
+        });
+
+         //Amount Amount Cal for room charges based on price change
+        $("#txtPrice").on("change", function () {
+            var price = $("#txtPrice").val();
+            var qty = $("#txtQty").val();
+
+            var amount = price * qty;
+            $("#txtAmount").val(amount);
+        });
+
+        //ddl service change
+        $("#ddlService").on("change", function () {
+             var service = $('#ddlService option:selected').val();
+            var obj = { serviceId: service };
+            var url = '@Url.Action("servicechragesbyid", "Invoice")'; // Don't hard code your url's!
+           // var service = $("#"); // cache it
+            AjaxCall(url, obj).done(function (response) {
+                console.log(response);
+                $("#txtServicePrice").val(response);
+                    if (response.length > 0) {
+
+                        console.log(response.TotalCharges);
+
+                        $("#txtServicePrice").val(response);
+
+                    }
+                }).fail(function (error) {
+                    alert(error.StatusText);
+                });
+        });
+
+        //Balance Amount Cal
+        $("#txtTotalAmount").on("change", function () {
             debugger;
-            var addmission = $("#RoomTable [id*='ddlRooms']").val()
+            var totalAmount = $("#txtTotalAmount").val();
+            var advanceAmount = $("#txtAdvanceAmount").val();
+
+            var amount = totalAmount - advanceAmount;
+
+            console.log(amount );
+            $("#txtBalanceAmount").val(amount);
+        });
+        $("#ddlRooms").on("change", function () {
+            //debugger;
+            var addmission = $('#ddlAddmission option:selected').val()
                 // Find the closest row and find your 'cbo' element and get its value
-            var state = $(this).closest('tr').find("input[type='text'][name='RoomDetails[0].Charge']").val();
+            var state = $("#txtQty");
             var obj = { addmissionId: addmission };
                 var url = '@Url.Action("roomchragesbyid", "Invoice")'; // Don't hard code your url's!
-            var service = $("input[type='text'][name='RoomDetails[0].Charge']"); // cache it
-                AjaxCall(url, obj).done(function (response) {
+           // var service = $("#"); // cache it
+            AjaxCall(url, obj).done(function (response) {
+                console.log(response);
+                $("#txtPrice").val(response);
                     if (response.length > 0) {
-                        debugger;
+
                         console.log(response.TotalCharges);
-                       
-                        state.val(response.TotalCharges);
+
+                        $("#txtPrice").val(response);
 
                     }
                 }).fail(function (error) {
@@ -365,17 +671,38 @@
                         if (response.length == 1) {
                             $('#add1').disableSelection;
                         }
+
+                        @*console.log("@ViewBag.advanceAmount");
+
+                        $("#txtAdvanceAmount").val("@ViewBag.advanceAmount");*@
                         service.empty(); // remove any existing options
                         service.append($('<option></option>').text('Select Room').val(0));
                         $.each(response, function (index, item) {
                             console.log(item.text);
-                            $('select.room').each(function () {
-                                // $(this) now refers to one specific <select> element
-                                // we append an option to it, like you asked for
-                                $(this).append($('<option></option>').text(item.text).val(item.value));
-                            });
-
+                            //$('select.room').each(function () {
+                            //    // $(this) now refers to one specific <select> element
+                            //    // we append an option to it, like you asked for
+                            //    $(this).append($('<option></option>').text(item.text).val(item.value));
+                            //});
+                            service.append($('<option></option>').text(item.text).val(item.value));
                         });
+
+                    }
+                }).fail(function (error) {
+                    alert(error.StatusText);
+                });
+
+
+            var url1 = '@Url.Action("advanceamountbyid", "Invoice")'; // Don't hard code your url's!
+           // var service = $("#"); // cache it
+            AjaxCall(url1, obj).done(function (response) {
+                console.log(response);
+                $("#txtAdvanceAmount").val(response);
+                    if (response.length > 0) {
+
+                        console.log(response.result);
+
+                        $("#txtAdvanceAmount").val(response.result);
 
                     }
                 }).fail(function (error) {
@@ -383,7 +710,29 @@
                 });
             });
 
+        @*$("table").on("change", ".room", function () {  //use event delegation
+            console.log("value is " + $(':selected').text());
+            debugger;
 
+            var addmission = $(this).find(":selected").text();
+                // Find the closest row and find your 'cbo' element and get its value
+            var state = $(this).closest('tr').find("input[type='text'][name='RoomDetails[0].Charge']").val();
+            var obj = { addmissionId: addmission };
+                var url = '@Url.Action("roomchragesbyid", "Invoice")'; // Don't hard code your url's!
+            //var service = $("input[type='text'][name='RoomDetails[0].Charge']"); // cache it
+                AjaxCall(url, obj).done(function (response) {
+                    if (response.length > 0) {
+
+                        console.log(response.TotalCharges);
+
+                        state.val(response.TotalCharges);
+
+                    }
+                }).fail(function (error) {
+                    alert(error.StatusText);
+                });
+
+        });*@
 
         $("table").on("change", "input", function () {  //use event delegation
             var tableRow = $(this).closest("tr");  //from input find row
@@ -397,25 +746,35 @@
                 var val = Number($(this).val());
                 theTotal += parseInt(val);
             });
-            $(".result").val(""+theTotal);
+            $(".result").val("" + theTotal);
+
+            var advanceAmount = $("#txtAdvanceAmount").val();
+
+            var amount = theTotal - advanceAmount;
+
+            //console.log(amount);
+            $("#txtBalanceAmount").val(amount);
         });
         $("table").on("change", "input", function () {  //use event delegation
             var tableRow = $(this).closest("tr");  //from input find row
             var one = Number(tableRow.find(".one1").val());  //get first textbox
             var two = Number(tableRow.find(".two2").val());  //get second textbox
             var total = one * two;  //calculate total
-            tableRow.find(".three3").val(total);  //set value
+            tableRow.find(".three").val(total);  //set value
 
             var theTotal = 0;
-            $(".three3").each(function () {
-                var val = Number($(this).val());
-                theTotal += parseInt(val);
-            });
+
             $(".three").each(function () {
                 var val = Number($(this).val());
                 theTotal += parseInt(val);
             });
             $(".result").val("" + theTotal);
+             var advanceAmount = $("#txtAdvanceAmount").val();
+
+            var amount = theTotal - advanceAmount;
+
+            //console.log(amount);
+            $("#txtBalanceAmount").val(amount);
         });
         //Datemask dd/mm/yyyy
         $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
@@ -428,6 +787,25 @@
         })
 
     });
+        function calculation() {
+            debugger;
+            var theTotal = 0;
+            $(".three").each(function () {
+                var val = Number($(this).val());
+                theTotal += parseInt(val);
+            });
+            //$(".three").each(function () {
+            //    var val = Number($(this).val());
+            //    theTotal += parseInt(val);
+            //});
+            $(".result").val("" + theTotal);
+            var advanceAmount = $("#txtAdvanceAmount").val();
+            var totalAmount = $(".result").val();
+            var amount = totalAmount - advanceAmount;
+
+            //console.log(amount);
+            $("#txtBalanceAmount").val(amount);
+        }
     function AjaxCall(url, data, type) {
         return $.ajax({
             url: url,
@@ -440,7 +818,16 @@
         debugger;
 
     }
-
+        function serviceTxtClear() {
+            $("#txtServicePrice").val('0');
+            $("#txtServiceQty").val('0');
+            $("#txtServiceAmount").val('0');
+        }
+        function RoomTxtClear() {
+            $("#txtPrice").val('0');
+            $("#txtQty").val('0');
+            $("#txtAmount").val('0');
+        }
     function addrow1() {
         $('<tr id="tablerom' + counter + '"><td>' +
             '     <label asp-for="RoomDetails[' + counter + '].roomId" class="control-label"></label>' +
@@ -495,4 +882,4 @@
         }
         return false;
     }
-</script>
+    </script>

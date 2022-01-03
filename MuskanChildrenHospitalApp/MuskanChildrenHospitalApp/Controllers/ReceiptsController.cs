@@ -46,7 +46,7 @@ namespace MuskanChildrenHospitalApp.Controllers
         // GET: Receipts/Create
         public IActionResult Create()
         {
-            ViewData["AddmisionId"] = new SelectList(_contextAddmision.GetAddmisions(), "id", "id");
+            ViewData["AddmisionId"] = new SelectList(_contextAddmision.GetAddmisions(), "id", "RegNo");
             ViewData["HeadsId"] = new SelectList(_contextIncome.IncomeHeads(), "Id", "Id");
             return View();
         }
