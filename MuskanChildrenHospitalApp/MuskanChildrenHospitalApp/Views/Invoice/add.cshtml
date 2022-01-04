@@ -114,7 +114,7 @@
                                 <thead>
                                     <tr>
                                         <th>Room</th>
-                                        
+                                        <th style="">ID</th>
                                         <th>Days</th>
                                         <th>Charges</th>
                                         <th> Amount</th>
@@ -141,7 +141,7 @@
                                     <tr>
                                         <th>Particulars</th>
 
-                                        <th style="display:none;">ID</th>
+                                        <th style="visibility: hidden;">ID</th>
                                         <th>Days</th>
                                         <th>Charges</th>
                                         <th> Amount</th>
@@ -260,24 +260,8 @@
           //  var url = window.location.href;
            // var UserId = url.substring(url.lastIndexOf('/') + 1);
 
+            console.log(data);
 
-            return $.ajax({
-                contentType: "application/json; charset=utf-8",
-                dataType: 'json',
-                type: 'POST',
-                url: "/Invoice/add/" ,
-                data: data,
-                success: function (data) {
-                    alert(data);
-                   // window.location.href = "/Invoice/generatePdf/" + parseInt(data);
-                },
-                error: function (a, b) {
-                    console.log(a);
-                    console.log(b);
-
-                    alert("Error!")
-                }
-            });
         }
         //Collect Multiple Order List For Pass To Controller
         function dataInsert() {
@@ -290,10 +274,10 @@
 
                 RoomArr.push({
 
-                    roomId: $(this).find('td:eq(0)').html(),
-                    Charge: $(this).find('td:eq(1)').html(),
+                    roomId: $(this).find('td:eq(1)').html(),
+                    Charge: $(this).find('td:eq(3)').html(),
                     Days: $(this).find('td:eq(2)').html(),
-                    Amount: $(this).find('td:eq(3)').html()
+                    Amount: $(this).find('td:eq(4)').html()
                 });
             });
 
@@ -302,11 +286,11 @@
                 ServiceArr.push({
 
 
-                    serviceId: $(this).find('td:eq(0)').html(),
-                    ServiceName: $(this).find('td:eq(1)').html(),
-                    Price: $(this).find('td:eq(2)').html(),
-                    qty: $(this).find('td:eq(3)').html(),
-                    amount: $(this).find('td:eq(4)').html()
+                    ServiceId: $(this).find('td:eq(1)').html(),
+                    ServiceName: $(this).find('td:eq(0)').html(),
+                    Price: $(this).find('td:eq(3)').html(),
+                    Day: $(this).find('td:eq(2)').html(),
+                    Amount: $(this).find('td:eq(4)').html()
                 });
             });
             // $(this).find('td:eq(15)').html()
@@ -314,7 +298,7 @@
 
             var bill = $("#txtBillNo").val();
             console.log(bill);
-
+            console.log(RoomArr);
             var data = JSON.stringify({
                 BillNo: bill,
                 Date: $("#datemask").val(),
@@ -332,11 +316,43 @@
                 Roomdetails: RoomArr
             });
             console.log(data);
-            $.when(saveOrder(data)).then(function (response) {
-                //console.log(response);
-            }).fail(function (err) {
-                // console.log(err);
+            var TargetedURL = '@Url.Action("add", "Invoice")';
+
+            
+           
+
+            $.ajax({
+                type: 'POST',
+                url: TargetedURL,
+                data: {
+                    BillNo: bill,
+                    Date: $("#datemask").val(),
+                    Diagnosis: $("#txtDiagnosis").val(),
+                    RegNo: $("#ddlAddmission option:selected").text(),
+                    addmisionId: $("#ddlAddmission option:selected").val(),
+                    AmtInWords: $("#txtAmtWr").val(),
+                    TotalAmt: $("#txtTotalAmount").val(),
+                    AdvanceAmt: $("#txtAdvanceAmount").val(),
+                    BalanceAmt: $("#txtBalanceAmount").val(),
+                    RefundAmt: $("#txtRefundAmount").val(),
+                    DiscountAmt: $("#txtDiscountAmt").val(),
+                    PaidAmt: $("#txtPaidAmt").val(),
+                    Services: ServiceArr,
+                    Roomdetails: RoomArr
+                },
+                success: function (data) {
+                    alert(data);
+                    // window.location.href = "/Invoice/generatePdf/" + parseInt(data);
+                },
+                error: function (a, b) {
+                    console.log(a);
+                    console.log(b);
+
+                    alert("Error!")
+                }
             });
+
+
         }
 
 
@@ -382,21 +398,21 @@
 
         $('#add').on("click", function () {
             var tableRow = $("#tablerom1");  //from input find row
-            var one = $("#txtServiceQty").val();  //get first textbox
-            var two = $("#txtServicePrice").val(); //get second textbox
-            var total = $("#txtServiceAmount").val();
-            var serviceId = $("#ddlService option:selected").text();
+            var Days = $("#txtServiceQty").val();  //get first textbox
+            var Price = $("#txtServicePrice").val(); //get second textbox
+            var Amount = $("#txtServiceAmount").val();
+            var serviceId = $("#ddlService option:selected").val();
 
             $('<tr id="tablerow' + counter + '"><td class=" total-ignore">'
                 + $('#ddlService').find(":selected").text() + "</td>" +
-                '<td style="display:none;"  class=" total-ignore">'
-                + $('#ddlService option:selected').val() + "</td>" +
+                '<td style="visibility:hidden;"  class=" total-ignore">'
+                + serviceId + "</td>" +
                 '<td  class=" total-ignore">'
-                + one + "</td>" +
+                + Days + "</td>" +
                 '<td  class=" total-ignore">'
-                + two + "</td>" +
+                + Price + "</td>" +
                 '<td class=" three a">' +
-               total + "</td>" +
+                Amount + "</td>" +
                 '<td  class=" total-ignore">'+
                 '<button type="button" class="btn btn-default" onclick="removeTr(' + counter + ');">Delete</button>' +
                 '</td>' +
@@ -413,7 +429,7 @@
                 // $row.children('td').select('#grandTotal').val;
                 // Then each column
                 $row.children('td').not('.total-ignore').each(function (index) {
-                    // "Initialize" the totals array. Basically this equals itself or 0. 
+                    // "Initialize" the totals array. Basically this equals itself or 0.
                     // This is important because you can't add to undefined!
                     theTotal = theTotal || 0;
 
@@ -430,7 +446,7 @@
                 // $row.children('td').select('#grandTotal').val;
                 // Then each column
                 $row.children('td').not('.total-ignore').each(function (index) {
-                    // "Initialize" the totals array. Basically this equals itself or 0. 
+                    // "Initialize" the totals array. Basically this equals itself or 0.
                     // This is important because you can't add to undefined!
                     theTotal = theTotal || 0;
 
@@ -460,7 +476,7 @@
 
             //console.log(amount);
             $("#txtBalanceAmount").val(amount);
-            
+
             serviceTxtClear();
             return false;
 
@@ -472,18 +488,20 @@
 
         $('#add1').on("click", function () {
             var tableRow = $("#tablerom1");  //from input find row
-            var one = $("#txtQty").val();  //get first textbox
-            var two = $("#txtPrice").val(); //get second textbox
+            var Days = $("#txtQty").val();  //get first textbox
+            var Price = $("#txtPrice").val(); //get second textbox
             var total = $("#txtAmount").val();
-            var roomid = $("#ddlRooms option:selected").text();
+            var roomid = $("#ddlRooms option:selected").val();
 
-
+            
             $('<tr id="tablerow' + counter + '"><td class=" total-ignore">'
                 + $('#ddlRooms').find(":selected").text() + "</td>" +
+                '<td class=" total-ignore" style="">'
+                + $('#ddlRooms option:selected').val() + "</td>" +
                 '<td class=" total-ignore">'
-                + one + "</td>" +
+                + Days + "</td>" +
                 '<td class=" total-ignore">'
-                + two + "</td>" +
+                + Price + "</td>" +
                 '<td class=" three a">' +
                 total + "</td>" +
                 '<td class=" total-ignore">' +
@@ -529,7 +547,7 @@
                 // $row.children('td').select('#grandTotal').val;
                 // Then each column
                 $row.children('td').not('.total-ignore').each(function (index) {
-                    // "Initialize" the totals array. Basically this equals itself or 0. 
+                    // "Initialize" the totals array. Basically this equals itself or 0.
                     // This is important because you can't add to undefined!
                     theTotal = theTotal || 0;
 
@@ -546,7 +564,7 @@
                 // $row.children('td').select('#grandTotal').val;
                 // Then each column
                 $row.children('td').not('.total-ignore').each(function (index) {
-                    // "Initialize" the totals array. Basically this equals itself or 0. 
+                    // "Initialize" the totals array. Basically this equals itself or 0.
                     // This is important because you can't add to undefined!
                     theTotal = theTotal || 0;
 
@@ -638,7 +656,8 @@
         });
         $("#ddlRooms").on("change", function () {
             //debugger;
-            var addmission = $('#ddlAddmission option:selected').val()
+            var addmission = $('#ddlRooms').find(":selected").val();
+            console.log(addmission);
                 // Find the closest row and find your 'cbo' element and get its value
             var state = $("#txtQty");
             var obj = { addmissionId: addmission };

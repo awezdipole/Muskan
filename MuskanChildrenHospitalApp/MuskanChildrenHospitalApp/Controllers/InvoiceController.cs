@@ -83,7 +83,8 @@ namespace MuskanChildrenHospitalApp.Controllers
                 inv.BalanceAmt = Convert.ToDecimal(BalanceAmt);
                 inv.PaidAmt = Convert.ToDecimal(PaidAmt);
                 inv.addmisionId = Convert.ToInt32(addmisionId);
-
+                db.Bills.Add(inv);
+                //db.SaveChanges();
                 mBillDetailsService detailsService = new mBillDetailsService();
 
                 foreach (var details in Services)
@@ -92,10 +93,11 @@ namespace MuskanChildrenHospitalApp.Controllers
                     detailsService.ServiceName = details.ServiceName;
                     detailsService.Price = details.Price;
                     detailsService.Day = details.Day;
-                    details.Amount = details.Amount;
-                    details.mBillId = inv.id;
+                    detailsService.Amount = details.Amount;
+                    detailsService.mBillId = inv.id;
 
-                    inv.mServices.Add(details);
+                    db.BillDetails.Add(detailsService);
+                
                 }
                 mBillRommDetailsCharges roomCharges = new mBillRommDetailsCharges();
 
@@ -106,10 +108,9 @@ namespace MuskanChildrenHospitalApp.Controllers
                     roomCharges.Days = room.Days;
                     roomCharges.Amount = room.Amount;
                     roomCharges.BillId = inv.id;
-                    inv.mRooms.Add(roomCharges);
+                    db.mBillRoom.Add(roomCharges);
                 }
 
-                db.Bills.Add(inv);
                 db.SaveChanges();
 
                 result = inv.BillNo;
